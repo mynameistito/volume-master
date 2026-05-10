@@ -1,0 +1,19 @@
+README.md
+  s_c1724eef1f08c0::t_2173b2aa5af6e1 1-103
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.4.4",
+  "base_commit_sha": "5ee0d5e524db9e60b5af422518b69fc150434979",
+  "prompts": {},
+  "sessions": {
+    "s_c1724eef1f08c0": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "19f1a88b-4c25-4278-ae20-3442fcd669eb",
+        "model": "claude-opus-4-7"
+      },
+      "human_author": "Tito <github@mynameistito.com>"
+    }
+  }
+}
