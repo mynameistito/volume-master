@@ -30,7 +30,7 @@ class StubDynamicsCompressor {
 }
 class StubWaveShaper {
   curve: Float32Array | null = null;
-  oversample: OverSampleType = "4x";
+  oversample: OverSampleType = "none";
   connect = () => undefined;
 }
 class StubSource {
@@ -89,6 +89,24 @@ describe("gain-graph", () => {
     const { setGain } = await import("@/audio/gain-graph");
     setGain(100);
     expect(lastGainNode?.gain?.value).toBe(1);
+  });
+
+  it("setGain clamps negative values to 0", async () => {
+    const { setGain, currentVolume } = await import("@/audio/gain-graph");
+    setGain(-10);
+    expect(currentVolume()).toBe(0);
+    expect(lastGainNode?.gain?.value).toBe(0);
+  });
+
+  it("setGain sanitizes NaN and Infinity to 0", async () => {
+    const { setGain, currentVolume } = await import("@/audio/gain-graph");
+    setGain(Number.NaN);
+    expect(currentVolume()).toBe(0);
+    expect(lastGainNode?.gain?.value).toBe(0);
+
+    setGain(Number.POSITIVE_INFINITY);
+    expect(currentVolume()).toBe(0);
+    expect(lastGainNode?.gain?.value).toBe(0);
   });
 
   it("builds compressor with correct settings", async () => {

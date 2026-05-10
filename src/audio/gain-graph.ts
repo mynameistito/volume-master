@@ -96,9 +96,12 @@ export function findMediaElements(
 }
 
 export function setGain(volumePercent: number): void {
+  const sanitized = Number.isFinite(volumePercent)
+    ? Math.max(0, volumePercent)
+    : 0;
   const s = ensureGraph();
-  s.volume = volumePercent;
-  s.gain.gain.value = volumeToGain(volumePercent);
+  s.volume = sanitized;
+  s.gain.gain.value = volumeToGain(sanitized);
   if (s.ctx.state === "suspended") {
     s.ctx.resume().catch(() => undefined);
   }
