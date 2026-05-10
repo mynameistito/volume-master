@@ -18,7 +18,7 @@
     "fix": "ultracite fix",
     "typecheck": "tsgo --noEmit",
     "test": "bun test",
-    "prepare": "lefthook install || true",
+    "prepare": "wxt prepare && bun run icons && (lefthook install || true)",
     "changeset": "changeset",
     "version": "changeset version",
     "release": "bun run build:all && bun run zip:all",

@@ -29,9 +29,6 @@ export function SettingsRoute() {
         </h2>
         <ul className="m-0 flex list-none flex-col gap-1.5 p-0 text-fg-dim text-xs">
           <li>
-            <Kbd>0</Kbd>–<Kbd>6</Kbd> set volume to 0%, 100%, …, 600%
-          </li>
-          <li>
             <Kbd>↑</Kbd> / <Kbd>→</Kbd> volume up by 10%
           </li>
           <li>
