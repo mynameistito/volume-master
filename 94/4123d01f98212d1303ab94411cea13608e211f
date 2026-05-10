@@ -1,0 +1,37 @@
+src/audio/gain-graph.ts
+  s_647640dac23a8b::t_c53b1ea4d02228 74
+  s_647640dac23a8b::t_3ffeb4197f483d 1-8,28-33,35-50,52-60,66,70-73,101
+  s_647640dac23a8b::t_fe98896f558495 18,23,34
+  s_647640dac23a8b::t_6a0fc789b4f27d 51
+.changeset/proper-audio-boost.md
+  s_647640dac23a8b::t_37dd66dd488f55 1-14
+__tests__/gain-graph.test.ts
+  s_ab175e443ea65a::t_88ff0d2e3448e5 50,82
+  s_647640dac23a8b::t_cc382d0c7b5002 107-108
+  s_647640dac23a8b::t_db0472457ca92d 12-13,23-35,47-49,51-54,74,76-81,83-106,112
+  s_647640dac23a8b::t_02c3905f550a8b 109-111
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.4.4",
+  "base_commit_sha": "944123d01f98212d1303ab94411cea13608e211f",
+  "prompts": {},
+  "sessions": {
+    "s_647640dac23a8b": {
+      "agent_id": {
+        "tool": "opencode",
+        "id": "ses_1ef718576ffewqu8TiW1PNoeB3",
+        "model": "unknown"
+      },
+      "human_author": "Tito <github@mynameistito.com>"
+    },
+    "s_ab175e443ea65a": {
+      "agent_id": {
+        "tool": "opencode",
+        "id": "ses_1ef95ffe8ffe13mgZKeA5K5tiL",
+        "model": "unknown"
+      },
+      "human_author": "Tito <github@mynameistito.com>"
+    }
+  }
+}
