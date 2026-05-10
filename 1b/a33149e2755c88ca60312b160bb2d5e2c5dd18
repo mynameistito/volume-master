@@ -1,0 +1,21 @@
+scripts/ci-release.ts
+  s_5a9c8d879758f2::t_80c1b2c2a4e928 24-28
+  s_5a9c8d879758f2::t_ca00673c5e0929 53-54,56-57,59
+  ai_agent 55,58
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.4.4",
+  "base_commit_sha": "1ba33149e2755c88ca60312b160bb2d5e2c5dd18",
+  "prompts": {},
+  "sessions": {
+    "s_5a9c8d879758f2": {
+      "agent_id": {
+        "tool": "opencode",
+        "id": "ses_1ef8ce2bdffeJ7Zr6NhHL9JAef",
+        "model": "unknown"
+      },
+      "human_author": "Tito <github@mynameistito.com>"
+    }
+  }
+}
