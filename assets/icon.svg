@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" fill="none">
+  <!-- Background: rounded square, dark-mode optimized -->
+  <rect width="128" height="128" rx="28" fill="#0B0F14"/>
+  <rect x="1" y="1" width="126" height="126" rx="27" stroke="url(#stroke)" stroke-opacity="0.35"/>
+
+  <!-- Speaker body -->
+  <path d="M30 50 L52 50 L74 32 L74 96 L52 78 L30 78 Z"
+        fill="url(#speaker)"
+        stroke="#7DD3FC" stroke-width="2" stroke-linejoin="round"/>
+
+  <!-- Boost waves (3) -->
+  <path d="M84 46 Q92 64 84 82" stroke="#38BDF8" stroke-width="4"
+        stroke-linecap="round" fill="none" opacity="0.95"/>
+  <path d="M94 38 Q108 64 94 90" stroke="#38BDF8" stroke-width="4"
+        stroke-linecap="round" fill="none" opacity="0.7"/>
+  <path d="M104 30 Q124 64 104 98" stroke="#38BDF8" stroke-width="4"
+        stroke-linecap="round" fill="none" opacity="0.45"/>
+
+  <defs>
+    <linearGradient id="speaker" x1="30" y1="32" x2="74" y2="96" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#E0F2FE"/>
+      <stop offset="1" stop-color="#7DD3FC"/>
+    </linearGradient>
+    <linearGradient id="stroke" x1="0" y1="0" x2="128" y2="128" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#38BDF8"/>
+      <stop offset="1" stop-color="#0EA5E9"/>
+    </linearGradient>
+  </defs>
+</svg>

@@ -1,0 +1,121 @@
+@import "tailwindcss";
+
+/* Dark-mode-first design tokens, exposed as Tailwind theme variables (v4). */
+@theme {
+  --color-bg: #0b0f14;
+  --color-elev: #111722;
+  --color-elev-2: #1a2230;
+  --color-border: #1f2937;
+  --color-fg: #e5e7eb;
+  --color-fg-dim: #9ca3af;
+  --color-fg-mute: #6b7280;
+  --color-accent: #38bdf8;
+  --color-accent-strong: #0ea5e9;
+  --color-warn: #fbbf24;
+
+  --radius-card: 12px;
+  --radius-pill: 8px;
+
+  --font-sans:
+    ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+}
+
+:root {
+  color-scheme: dark;
+}
+
+html,
+body {
+  width: 360px;
+  padding: 0;
+  margin: 0;
+  font-family: var(--font-sans);
+  font-size: 14px;
+  color: var(--color-fg);
+  background: var(--color-bg);
+}
+
+button {
+  font: inherit;
+  color: inherit;
+  cursor: pointer;
+  background: transparent;
+  border: 0;
+}
+
+/* Custom slider track + thumb — Tailwind has no first-class utilities for
+   the WebKit pseudo-elements, so this lives in plain CSS. */
+.vm-range {
+  --vm-fill: 0%;
+  width: 100%;
+  height: 6px;
+  appearance: none;
+  outline: none;
+  background: linear-gradient(
+    to right,
+    var(--color-accent) 0%,
+    var(--color-accent) var(--vm-fill),
+    var(--color-elev-2) var(--vm-fill),
+    var(--color-elev-2) 100%
+  );
+  border-radius: 999px;
+}
+
+.vm-range::-webkit-slider-thumb {
+  width: 16px;
+  height: 16px;
+  appearance: none;
+  cursor: grab;
+  background: var(--color-fg);
+  border: 2px solid var(--color-accent-strong);
+  border-radius: 50%;
+  box-shadow: 0 0 0 4px rgba(14, 165, 233, 0.15);
+}
+
+.vm-range::-moz-range-thumb {
+  width: 14px;
+  height: 14px;
+  background: var(--color-fg);
+  border: 2px solid var(--color-accent-strong);
+  border-radius: 50%;
+}
+
+.vm-range:active::-webkit-slider-thumb {
+  cursor: grabbing;
+}
+
+/* Audible-tab pulse — relies on @keyframes which isn't representable as a
+   Tailwind utility. Used via `className="vm-pulse"`. */
+.vm-pulse {
+  width: 6px;
+  height: 6px;
+  background: var(--color-accent);
+  border-radius: 9999px;
+  animation: vm-pulse 1.6s ease-out infinite;
+}
+
+@keyframes vm-pulse {
+  0% {
+    box-shadow: 0 0 0 0 rgba(56, 189, 248, 0.6);
+  }
+  70% {
+    box-shadow: 0 0 0 8px rgba(56, 189, 248, 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(56, 189, 248, 0);
+  }
+}
+
+/* Brand mark — gradient too irregular for a utility. */
+.vm-brand-mark {
+  width: 22px;
+  height: 22px;
+  background: radial-gradient(
+    circle at 30% 30%,
+    #7dd3fc 0%,
+    #0ea5e9 60%,
+    #082f49 100%
+  );
+  border-radius: 6px;
+  box-shadow: 0 0 0 1px rgba(56, 189, 248, 0.35);
+}
