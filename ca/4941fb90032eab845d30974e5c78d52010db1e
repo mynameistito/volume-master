@@ -1,0 +1,23 @@
+.github/workflows/release.yml
+  s_c1724eef1f08c0::t_0ec6ac82af3741 21
+src/globals.d.ts
+  s_c1724eef1f08c0::t_396178214ec43c 1-2
+.github/workflows/ci.yml
+  s_c1724eef1f08c0::t_3c41d12398c11a 18
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.4.4",
+  "base_commit_sha": "ca4941fb90032eab845d30974e5c78d52010db1e",
+  "prompts": {},
+  "sessions": {
+    "s_c1724eef1f08c0": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "19f1a88b-4c25-4278-ae20-3442fcd669eb",
+        "model": "claude-opus-4-7"
+      },
+      "human_author": "Tito <github@mynameistito.com>"
+    }
+  }
+}
