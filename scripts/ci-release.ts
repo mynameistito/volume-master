@@ -1,5 +1,5 @@
 import { execSync } from "node:child_process";
-import { readFileSync } from "node:fs";
+import { readFileSync, writeFileSync } from "node:fs";
 import { resolve } from "node:path";
 
 const ROOT = resolve(import.meta.dir, "..");
@@ -43,7 +43,9 @@ if (!body) {
   body = `Release ${tag}`;
 }
 
-const escapedBody = body.replace(/"/g, '\\"');
+const notesPath = resolve(ROOT, ".changeset", "RELEASE_NOTES.md");
+writeFileSync(notesPath, body);
+
 run(
-  `gh release create ${tag} --title "${tag}" --notes "${escapedBody}" .output/*.zip dist/*.zip`
+  `gh release create ${tag} --title "${tag}" --notes-file "${notesPath}" dist/volume-master-*.zip`
 );
