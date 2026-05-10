@@ -1,0 +1,42 @@
+src/ui/components/tab-row.tsx
+  s_fcb26abe4431fa::t_ef704624a2bff8 14
+src/ui/components/volume-slider.tsx
+  s_fcb26abe4431fa::t_1996b942d2cda4 19
+  s_fcb26abe4431fa::t_9abc790b98a238 20-26
+  s_fcb26abe4431fa::t_aa21439c1d01a6 40-41
+src/ui/theme.css
+  s_fcb26abe4431fa::t_496a7ec24bd24b 23-33,35-41
+  s_fcb26abe4431fa::t_da4c98e6bab5f0 4-7
+src/audio/__tests__/gain-graph.test.ts
+  s_fcb26abe4431fa::t_2daba1e59d19f4 75
+  s_fcb26abe4431fa::t_729a62e2f9e114 13-15,30-37
+  s_fcb26abe4431fa::t_1132243d59b369 57
+src/storage/volume-store.ts
+  s_fcb26abe4431fa::t_416290eec047bd 58
+src/ui/routes/index.tsx
+  s_fcb26abe4431fa::t_6a4058c0a55773 85
+  s_fcb26abe4431fa::t_651d359633e176 140,142
+  s_fcb26abe4431fa::t_16ed0d95e4713d 143
+  s_fcb26abe4431fa::t_3378b7e9afda4a 139,141,144-150
+  s_fcb26abe4431fa::t_84eff51df8c2c1 3
+wxt.config.ts
+  s_fcb26abe4431fa::t_3a794507d8df34 35
+  s_fcb26abe4431fa::t_42b8e51f8a8317 26-31
+  s_fcb26abe4431fa::t_3d9fe03f50b97e 18-23
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.4.4",
+  "base_commit_sha": "03a120400f9615a22654727f883cdcf921adfc9b",
+  "prompts": {},
+  "sessions": {
+    "s_fcb26abe4431fa": {
+      "agent_id": {
+        "tool": "opencode",
+        "id": "ses_1efb259deffeDcbInFRfMUEFYk",
+        "model": "unknown"
+      },
+      "human_author": "Tito <github@mynameistito.com>"
+    }
+  }
+}
