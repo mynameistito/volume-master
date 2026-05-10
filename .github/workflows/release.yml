@@ -2,10 +2,13 @@ name: Release
 
 on:
   push:
-    tags: ["v*"]
+    branches: [main]
+
+concurrency: ${{ github.workflow }}-${{ github.ref }}
 
 permissions:
   contents: write
+  pull-requests: write
 
 jobs:
   release:
@@ -18,22 +21,11 @@ jobs:
           bun-version: latest
 
       - run: bun install --frozen-lockfile
-      - run: bunx wxt prepare
 
-      - run: bun run icons
-      - run: bun run check
-      - run: bun run typecheck
-      - run: bun test
-
-      # Produce both Chrome MV3 and Firefox MV2 zips into .output/
-      - run: bun run zip
-      - run: bun run zip:firefox
-
-      - name: Attach zips to GitHub release
-        uses: softprops/action-gh-release@v2
+      - name: Create Release Pull Request or Publish
+        uses: changesets/action@v1
         with:
-          files: |
-            .output/*.zip
-            dist/*.zip
-          generate_release_notes: true
-          fail_on_unmatched_files: false
+          version: bun run version
+          publish: bun run ci:release
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
