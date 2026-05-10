@@ -1,0 +1,131 @@
+src/messaging/bus.ts
+  s_c1724eef1f08c0::t_e674750679c61d 7-10
+  s_c1724eef1f08c0::t_0c5f17297faf06 1-3,5-6,11-12,15-17,19,21,23-30,35-38,40-42,44-55,58
+  s_c1724eef1f08c0::t_b208ab5da40d57 4,13-14,18,20,22,31-34,39,56-57
+  s_c1724eef1f08c0::t_0c52d51416a9a6 43
+assets/icon.svg
+  s_c1724eef1f08c0::t_cc7bcc8c1e188e 1-29
+src/ui/routes/__root.tsx
+  s_c1724eef1f08c0::t_fb86f81da8b217 1-4,10,12,18-21,27-31,33-37
+  s_c1724eef1f08c0::t_eea0434eb38e7e 5-9,11,16-17,25-26,32
+src/ui/router.ts
+  s_c1724eef1f08c0::t_9b6412e55074a4 1-40
+wxt.config.ts
+  s_c1724eef1f08c0::t_8fb91a37a4e6ac 1,10
+  s_c1724eef1f08c0::t_5663a7dceeee65 2,9,11
+  s_c1724eef1f08c0::t_84b547bca9ade6 3-8,12-29
+src/entrypoints/background.ts
+  s_c1724eef1f08c0::t_82d51e52a165f5 1-6,9-12,14-25,27-39,41-42
+  s_c1724eef1f08c0::t_d4f15537d8a89c 13,40,45-46
+  s_c1724eef1f08c0::t_8a10d24d7aa80a 7-8,26,43-44
+src/ui/routes/index.tsx
+  s_c1724eef1f08c0::t_f096b10f09e718 3-4,8,15,18-20,31-33,35-40,42,46-50,54-57,62-67,84-87,91-106,108,120,138,142-143,146-147,156-161,167-170
+  s_c1724eef1f08c0::t_0105a24a02d35b 1-2,9-14,16-17,21-30,34,41,61,68-75,77-78,80-81,83,109-119,121-123,135-137,139-141,145,148-152,162-165
+  s_c1724eef1f08c0::t_eaf43a5ffade64 6-7,76,79,82,124-134,166
+  s_c1724eef1f08c0::t_e674750679c61d 5,43-45,51-53,58-60,88-90,107,144
+src/tabs/audible.ts
+  s_c1724eef1f08c0::t_e674750679c61d 7-9,13,17-19
+  s_c1724eef1f08c0::t_74a7334e0a4649 2,32,41
+  s_c1724eef1f08c0::t_d198f51fdc473d 1,3-6,10-12,14-16,20-31,33-40,42-44
+.changeset/README.md
+  s_c1724eef1f08c0::t_33961c9d6465df 1-4
+package.json
+  s_c1724eef1f08c0::t_14456fd274b3e1 36,46
+  s_c1724eef1f08c0::t_ebfee0816062c3 21
+  s_c1724eef1f08c0::t_854ec63df73c4b 53-56
+  s_c1724eef1f08c0::t_a898015e0bd081 27,29-35,37-41,44-45,47-49
+  s_c1724eef1f08c0::t_d7770461f7393e 43
+  s_c1724eef1f08c0::t_756b411713d8d3 3-20,22-24,28,50-52
+.changeset/initial-release.md
+  s_c1724eef1f08c0::t_25f7a35993d52f 1-12
+src/messaging/protocol.ts
+  s_c1724eef1f08c0::t_e674750679c61d 7,17-22,25-32,35,39-43,46,50-62,75,77-79,81-83,90-92,100-105
+  s_c1724eef1f08c0::t_dad4ab15b5ba14 1-6,8-16,23-24,33-34,36-38,44-45,47-49,63-74,76,80,84-89,93-99,106-116
+tests/setup.ts
+  s_c1724eef1f08c0::t_5efe9bb3a714b5 6-7,11,18,49,52,64-67,75,82-88,90-101,103-107,109-112,115-121,125-130
+  s_c1724eef1f08c0::t_7be91a521f8112 21-28
+  s_c1724eef1f08c0::t_262424e307be16 1-5,8-10,12-17,19-20,29-48,50-51,53-63,68-74,76-81,89,102,108,113-114,122-124,131
+src/entrypoints/content.ts
+  s_c1724eef1f08c0::t_ac65cb72950c62 1-3,5-12,18-31
+  s_c1724eef1f08c0::t_ea7b5e924c30d2 4
+  s_c1724eef1f08c0::t_762cbfd35398ca 13-17,32-33
+.github/workflows/release.yml
+  s_c1724eef1f08c0::t_bb0037188b2f65 15,21,26-29,31,36,38
+  s_c1724eef1f08c0::t_4069f39efe605d 1-14,16-20,22-25,30,32-35,37
+.changeset/config.json
+  s_c1724eef1f08c0::t_a03be85e24f69e 1-11
+src/storage/__tests__/volume-store.test.ts
+  s_c1724eef1f08c0::t_4aad6b92214646 1-13,15-32,34-49
+  s_c1724eef1f08c0::t_e0d3725ec3c530 14,33
+src/storage/volume-store.ts
+  s_c1724eef1f08c0::t_f5599d22e5d24e 5,22-28,30,32,38,40,44,46,51,56-62,84
+  s_c1724eef1f08c0::t_dca73d10675af2 1-4,12-13,15-16,19-21,29,31,33,37,39,45,47,52-55,63-68,72-83,85-98
+  s_c1724eef1f08c0::t_e674750679c61d 6-11,14,17-18,34-36,41-43,48-50,69-71
+lefthook.yml
+  s_c1724eef1f08c0::t_08b31debcb56b6 3-18
+src/audio/__tests__/gain-graph.test.ts
+  s_c1724eef1f08c0::t_e556c19dfbc55e 1,7-8,26
+  s_c1724eef1f08c0::t_e88c27a5a478f4 3-6,9-25,27-31,35-66
+  s_c1724eef1f08c0::t_af4ec9fd7202da 32-34
+.gitignore
+  s_c1724eef1f08c0::t_c5d42ec69cc901 1-6,11-23
+  s_c1724eef1f08c0::t_7c1ebdc2cb562b 10,29-36
+src/types.ts
+  s_c1724eef1f08c0::t_e674750679c61d 7-9,15
+  s_c1724eef1f08c0::t_27bce36b8b5dd0 1-6,10-14
+src/config.ts
+  s_c1724eef1f08c0::t_46419cd9406ed2 1-11
+src/audio/gain-graph.ts
+  s_c1724eef1f08c0::t_f5fbfa288ee06a 1-10,12-15,17-21,25-34,38-49,53-61,63-78,82-95
+  s_c1724eef1f08c0::t_e674750679c61d 11,16,22-24,35-37,50-52,79-81
+  s_c1724eef1f08c0::t_77fad2ad3e425b 62
+src/tabs/__tests__/audible.test.ts
+  s_c1724eef1f08c0::t_8d9148b0a77db3 8,11,16,30
+  s_c1724eef1f08c0::t_2bd8bd4f51bd79 1-7,9-10,12-15,17-29,31-40
+biome.jsonc
+  s_c1724eef1f08c0::t_b442bf93183b75 3
+tsconfig.json
+  s_c1724eef1f08c0::t_8d1c8f123f5e69 24
+  s_c1724eef1f08c0::t_60d5a09c72c8f5 2-23
+src/ui/components/tab-row.tsx
+  s_c1724eef1f08c0::t_6598dd962d8d4b 23-31
+src/entrypoints/popup/main.tsx
+  s_c1724eef1f08c0::t_cefd68c9ff02ed 5
+  s_c1724eef1f08c0::t_fbacb93dfea39c 1,4,11-12
+  s_c1724eef1f08c0::t_4cf135fd4e369d 2-3,6-10,13-14
+src/entrypoints/popup/index.html
+  s_c1724eef1f08c0::t_c7efa75b91eed7 1-13
+src/ui/routes/settings.tsx
+  s_c1724eef1f08c0::t_04a23149f92a80 5-10,12-13,15,17,19,26-30,32,35,38,43-50
+  s_c1724eef1f08c0::t_73004e3a1d9d5e 1-4,11,14,16,18,21-25,31,33-34,36-37,39-42,51-52
+src/ui/theme.css
+  s_c1724eef1f08c0::t_c997f85b7cbced 29,36-45,49-51,54-55,60,62-63,65-66,72-74,76-77,81-82,84,90-91,94-106
+  s_c1724eef1f08c0::t_0696cd7da6d693 1-19,23-24,30-32,34-35,46-48,53,56-59,61,64,69-70,75,78-79,83,87-89,92,109-120
+  s_c1724eef1f08c0::t_d9cfc9c8dfa543 20-22,25-28,33,85-86,107-108,121
+src/ui/components/tab-list.tsx
+  s_c1724eef1f08c0::t_c14a88511507a1 2
+.github/workflows/ci.yml
+  s_c1724eef1f08c0::t_e2730b24cb31c7 1-23
+scripts/rasterize-icons.ts
+  s_c1724eef1f08c0::t_db60afdc187dda 1-24
+src/messaging/__tests__/protocol.test.ts
+  s_c1724eef1f08c0::t_d2b7ea7b5d8de5 1-37
+bunfig.toml
+  s_c1724eef1f08c0::t_243c33e8723c2f 1-2
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.4.4",
+  "base_commit_sha": "9767c3a78686c25aaf262753dc795811803f1734",
+  "prompts": {},
+  "sessions": {
+    "s_c1724eef1f08c0": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "19f1a88b-4c25-4278-ae20-3442fcd669eb",
+        "model": "claude-opus-4-7"
+      },
+      "human_author": "Tito <github@mynameistito.com>"
+    }
+  }
+}
