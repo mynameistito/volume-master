@@ -1,0 +1,23 @@
+__tests__/gain-graph.test.ts
+  s_7ed1f08a10ef4a::t_1b04c7acb81a82 107
+  s_7ed1f08a10ef4a::t_4b6f5067168fa0 33
+  s_7ed1f08a10ef4a::t_b052bb1ba5a192 94-106,108-111
+src/audio/gain-graph.ts
+  s_7ed1f08a10ef4a::t_b7f295a4f04cae 99-101,103-104
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.4.4",
+  "base_commit_sha": "4f44c64c6266e72f3fde57650b4513bbcc092e84",
+  "prompts": {},
+  "sessions": {
+    "s_7ed1f08a10ef4a": {
+      "agent_id": {
+        "tool": "opencode",
+        "id": "ses_1ef586322ffeeEvkwfh6dW5SGd",
+        "model": "unknown"
+      },
+      "human_author": "Tito <github@mynameistito.com>"
+    }
+  }
+}
