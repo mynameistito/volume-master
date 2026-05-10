@@ -1,0 +1,30 @@
+package.json
+  s_5a9c8d879758f2::t_cefb036fcaf2d1 24-25
+  s_5a9c8d879758f2::t_8055005f8765d6 4
+scripts/ci-release.ts
+  s_5a9c8d879758f2::t_8a42af89eaa4ac 1-7,9-13,15-23,26-31,33-34,41,45
+  s_5a9c8d879758f2::t_26c13b737fbe47 32,48
+  s_5a9c8d879758f2::t_d33d7e1bdbd88a 8,14,24-25,35-40,42-44,46-47,49
+.changeset/config.json
+  s_5a9c8d879758f2::t_e6a84afd3e5b84 7
+CHANGELOG.md
+  s_5a9c8d879758f2::t_8055005f8765d6 1-14
+.github/workflows/release.yml
+  s_5a9c8d879758f2::t_062d154acd7ac3 5-7,11,25-26,28-31
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.4.4",
+  "base_commit_sha": "3dc775f2290fea481b48dd9a1446af5f97355f8b",
+  "prompts": {},
+  "sessions": {
+    "s_5a9c8d879758f2": {
+      "agent_id": {
+        "tool": "opencode",
+        "id": "ses_1ef8ce2bdffeJ7Zr6NhHL9JAef",
+        "model": "unknown"
+      },
+      "human_author": "Tito <github@mynameistito.com>"
+    }
+  }
+}
