@@ -1,20 +1,16 @@
 @import "tailwindcss";
 
-/* Dark-mode-first design tokens, exposed as Tailwind theme variables (v4). */
 @theme {
-  --color-bg: #0b0f14;
-  --color-elev: #111722;
-  --color-elev-2: #1a2230;
-  --color-border: #1f2937;
+  --color-bg: #0a0a0a;
+  --color-elev: #141414;
+  --color-elev-2: #1f1f1f;
+  --color-border: #2a2a2a;
   --color-fg: #e5e7eb;
   --color-fg-dim: #9ca3af;
   --color-fg-mute: #6b7280;
   --color-accent: #38bdf8;
   --color-accent-strong: #0ea5e9;
   --color-warn: #fbbf24;
-
-  --radius-card: 12px;
-  --radius-pill: 8px;
 
   --font-sans:
     ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
@@ -24,27 +20,27 @@
   color-scheme: dark;
 }
 
-html,
-body {
-  width: 360px;
-  padding: 0;
-  margin: 0;
-  font-family: var(--font-sans);
-  font-size: 14px;
-  color: var(--color-fg);
-  background: var(--color-bg);
+@layer base {
+  html,
+  body {
+    width: 360px;
+    padding: 0;
+    margin: 0;
+    font-family: var(--font-sans);
+    font-size: 14px;
+    color: var(--color-fg);
+    background: var(--color-bg);
+  }
+
+  button {
+    font: inherit;
+    color: inherit;
+    cursor: pointer;
+    background: transparent;
+    border: 0;
+  }
 }
 
-button {
-  font: inherit;
-  color: inherit;
-  cursor: pointer;
-  background: transparent;
-  border: 0;
-}
-
-/* Custom slider track + thumb — Tailwind has no first-class utilities for
-   the WebKit pseudo-elements, so this lives in plain CSS. */
 .vm-range {
   --vm-fill: 0%;
   width: 100%;
@@ -84,8 +80,6 @@ button {
   cursor: grabbing;
 }
 
-/* Audible-tab pulse — relies on @keyframes which isn't representable as a
-   Tailwind utility. Used via `className="vm-pulse"`. */
 .vm-pulse {
   width: 6px;
   height: 6px;
@@ -106,7 +100,6 @@ button {
   }
 }
 
-/* Brand mark — gradient too irregular for a utility. */
 .vm-brand-mark {
   width: 22px;
   height: 22px;

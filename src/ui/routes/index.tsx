@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useState } from "react";
 import { browser } from "wxt/browser";
-import { VOLUME_DEFAULT, VOLUME_PRESETS } from "@/config";
+import { VOLUME_DEFAULT } from "@/config";
 import { send } from "@/messaging/bus";
 import type { TabAudio } from "@/types";
 import { TabList } from "@/ui/components/tab-list";
@@ -82,16 +82,10 @@ export function IndexRoute() {
     [activeTab?.id]
   );
 
-  // Keyboard shortcuts: 0–6 set presets, arrows nudge ±10.
+  // Keyboard shortcuts: arrows nudge ±10.
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
       if (e.target instanceof HTMLInputElement) {
-        return;
-      }
-      const n = Number.parseInt(e.key, 10);
-      if (Number.isFinite(n) && n >= 0 && n <= 6) {
-        onVolumeChange(n * 100);
-        e.preventDefault();
         return;
       }
       if (e.key === "ArrowUp" || e.key === "ArrowRight") {
@@ -142,22 +136,18 @@ export function IndexRoute() {
           </div>
         </div>
         <VolumeSlider onChange={onVolumeChange} value={volume} />
-        <div className="grid grid-cols-6 gap-1">
-          {VOLUME_PRESETS.map((p) => (
-            <button
-              className={`rounded-md border py-1.5 font-semibold text-[11px] tabular-nums transition-colors ${
-                p === volume
-                  ? "border-accent bg-accent/10 text-fg"
-                  : "border-transparent bg-elev-2 text-fg-dim hover:bg-border hover:text-fg"
-              }`}
-              key={p}
-              onClick={() => onVolumeChange(p)}
-              type="button"
-            >
-              {p}%
-            </button>
-          ))}
-        </div>
+        <button
+          className={`w-full rounded-xl py-2.5 font-semibold text-[13px] transition-colors ${
+            volume === VOLUME_DEFAULT
+              ? "bg-elev-2 text-fg-mute/30"
+              : "bg-accent text-bg hover:bg-accent-strong active:bg-accent-strong"
+          }`}
+          disabled={volume === VOLUME_DEFAULT}
+          onClick={() => onVolumeChange(VOLUME_DEFAULT)}
+          type="button"
+        >
+          Reset to {VOLUME_DEFAULT}%
+        </button>
       </section>
       <section className="flex flex-col gap-2.5 rounded-xl border border-border bg-elev p-3">
         <h2 className="m-0 font-semibold text-[12px] text-fg-dim uppercase tracking-wider">

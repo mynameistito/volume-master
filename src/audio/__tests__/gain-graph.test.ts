@@ -10,6 +10,9 @@ afterAll(async () => {
 
 // happy-dom doesn't provide WebAudio. Stub the bare minimum the gain-graph
 // touches so we can exercise the wiring logic deterministically.
+let lastGainNode: StubGainNode;
+let mediaSourceCallCount = 0;
+
 class StubAudioParam {
   value = 1;
 }
@@ -24,8 +27,14 @@ class StubAudioContext {
   state: "suspended" | "running" = "running";
   destination = {};
   resume = () => Promise.resolve();
-  createGain = () => new StubGainNode();
-  createMediaElementSource = (_el: unknown) => new StubSource();
+  createGain = () => {
+    lastGainNode = new StubGainNode();
+    return lastGainNode;
+  };
+  createMediaElementSource = (_el: unknown) => {
+    mediaSourceCallCount++;
+    return new StubSource();
+  };
 }
 
 beforeAll(() => {
@@ -37,6 +46,7 @@ beforeAll(() => {
 afterEach(async () => {
   const mod = await import("@/audio/gain-graph");
   mod.__resetGraph();
+  mediaSourceCallCount = 0;
 });
 
 describe("gain-graph", () => {
@@ -44,6 +54,7 @@ describe("gain-graph", () => {
     const { setGain, currentVolume } = await import("@/audio/gain-graph");
     setGain(250);
     expect(currentVolume()).toBe(250);
+    expect(lastGainNode?.gain?.value).toBe(2.5);
   });
 
   it("findMediaElements returns audio + video", async () => {
@@ -61,6 +72,6 @@ describe("gain-graph", () => {
     const el = document.createElement("audio") as unknown as HTMLMediaElement;
     attach(el);
     attach(el);
-    expect(true).toBe(true);
+    expect(mediaSourceCallCount).toBe(1);
   });
 });

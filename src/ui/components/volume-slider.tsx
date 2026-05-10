@@ -5,10 +5,6 @@ interface Props {
   value: number;
 }
 
-/**
- * Volume slider 0–600 with live readout. Fine-grained step = 1.
- * Visual fill uses a CSS variable so the gradient tracks the value.
- */
 export function VolumeSlider({ value, onChange }: Props) {
   const pct = ((value - VOLUME_MIN) / (VOLUME_MAX - VOLUME_MIN)) * 100;
   const isBoosted = value > 100;
@@ -20,21 +16,14 @@ export function VolumeSlider({ value, onChange }: Props) {
   };
 
   return (
-    <div className="flex flex-col gap-1.5">
-      <div className="flex items-baseline justify-between gap-2">
-        <span
-          className={`font-bold text-3xl tabular-nums tracking-tight ${
-            isBoosted ? "text-warn" : "text-fg"
-          }`}
-        >
-          {value}%
-        </span>
-        {isBoosted ? (
-          <span className="font-semibold text-[11px] text-warn uppercase tracking-wider">
-            boosting
-          </span>
-        ) : null}
-      </div>
+    <div className="flex flex-col gap-1">
+      <span
+        className={`font-bold text-3xl tabular-nums tracking-tight ${
+          isBoosted ? "text-warn" : "text-fg"
+        }`}
+      >
+        {value}%
+      </span>
       <input
         aria-label="Volume"
         className="vm-range"
@@ -48,10 +37,8 @@ export function VolumeSlider({ value, onChange }: Props) {
         value={value}
       />
       <div className="flex justify-between font-mono text-[10px] text-fg-mute tabular-nums">
-        <span>0</span>
-        <span>100</span>
-        <span>300</span>
-        <span>600</span>
+        <span>0%</span>
+        <span>600%</span>
       </div>
     </div>
   );

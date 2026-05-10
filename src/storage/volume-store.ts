@@ -55,11 +55,7 @@ const memoryArea: StorageArea = {
 function area(): StorageArea {
   // `browser.storage.session` is only available in MV3-capable browsers and
   // not in the test environment.
-  return (
-    (browser.storage?.session as StorageArea | undefined) ??
-    (browser.storage?.local as StorageArea | undefined) ??
-    memoryArea
-  );
+  return (browser.storage?.session as StorageArea | undefined) ?? memoryArea;
 }
 
 const keyFor = (tabId: number) => `${STORAGE_VOLUME_PREFIX}${tabId}`;
