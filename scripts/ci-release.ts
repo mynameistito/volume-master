@@ -21,7 +21,11 @@ run("bun test");
 run("bun run zip");
 run("bun run zip:firefox");
 
-execSync(`git tag ${tag}`, { cwd: ROOT });
+try {
+  execSync(`git rev-parse ${tag}`, { cwd: ROOT, stdio: "pipe" });
+} catch {
+  execSync(`git tag ${tag}`, { cwd: ROOT });
+}
 execSync(`git push origin ${tag}`, { cwd: ROOT });
 
 const changelogPath = resolve(ROOT, "CHANGELOG.md");
@@ -46,6 +50,10 @@ if (!body) {
 const notesPath = resolve(ROOT, ".changeset", "RELEASE_NOTES.md");
 writeFileSync(notesPath, body);
 
-run(
-  `gh release create ${tag} --title "${tag}" --notes-file "${notesPath}" dist/volume-master-*.zip`
-);
+try {
+  run(
+    `gh release create ${tag} --title "${tag}" --notes-file "${notesPath}" dist/volume-master-*.zip`
+  );
+} catch {
+  run(`gh release upload ${tag} dist/volume-master-*.zip --clobber`);
+}
