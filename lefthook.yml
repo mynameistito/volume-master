@@ -1,0 +1,18 @@
+pre-commit:
+  jobs:
+    - name: ultracite-fix
+      run: bun x ultracite fix {staged_files}
+      glob:
+        - "**/*.js"
+        - "**/*.jsx"
+        - "**/*.ts"
+        - "**/*.tsx"
+        - "**/*.json"
+        - "**/*.jsonc"
+        - "**/*.css"
+      stage_fixed: true
+    - name: typecheck
+      run: bun run typecheck
+      glob:
+        - "**/*.ts"
+        - "**/*.tsx"

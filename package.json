@@ -1,0 +1,57 @@
+{
+  "name": "volume-master",
+  "description": "Per-tab volume control with up to 600% boost. Cross-browser (Chrome + Firefox).",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "wxt",
+    "dev:firefox": "wxt -b firefox",
+    "build": "wxt build",
+    "build:firefox": "wxt build -b firefox",
+    "zip": "wxt zip",
+    "zip:firefox": "wxt zip -b firefox",
+    "build:all": "bun run icons && bun run build && bun run build:firefox",
+    "zip:all": "bun run icons && bun run zip && bun run zip:firefox",
+    "icons": "bun run scripts/rasterize-icons.ts",
+    "check": "ultracite check",
+    "fix": "ultracite fix",
+    "typecheck": "tsgo --noEmit",
+    "test": "bun test",
+    "prepare": "lefthook install || true",
+    "changeset": "changeset",
+    "version": "changeset version",
+    "release": "bun run build:all && bun run zip:all"
+  },
+  "dependencies": {
+    "@tanstack/react-router": "^1.169.2",
+    "better-result": "^2.9.2",
+    "react": "^19.2.6",
+    "react-dom": "^19.2.6"
+  },
+  "devDependencies": {
+    "@biomejs/biome": "^2.4.15",
+    "@changesets/cli": "^2.31.0",
+    "@happy-dom/global-registrator": "^20.9.0",
+    "@tailwindcss/vite": "^4.3.0",
+    "@tanstack/router-devtools": "^1.166.13",
+    "@types/bun": "^1.3.13",
+    "@types/chrome": "^0.1.42",
+    "@types/react": "^19.2.14",
+    "@types/react-dom": "^19.2.3",
+    "@typescript/native-preview": "^7.0.0-dev.20260509.2",
+    "@vitejs/plugin-react": "^6.0.1",
+    "lefthook": "^2.1.6",
+    "sharp": "^0.34.5",
+    "tailwindcss": "^4.3.0",
+    "ultracite": "^7.6.5",
+    "vite": "^8.0.11",
+    "wxt": "^0.20.25"
+  },
+  "peerDependencies": {
+    "typescript": "^6.0.3"
+  },
+  "trustedDependencies": [
+    "spawn-sync"
+  ]
+}

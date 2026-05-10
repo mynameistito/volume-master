@@ -1,0 +1,36 @@
+# dependencies
+node_modules
+
+# wxt
+.wxt
+.output
+dist
+*.tgz
+
+# build artifacts (rasterized icons are produced from assets/icon.svg)
+public/icon/*.png
+
+# coverage
+coverage
+*.lcov
+
+# logs
+logs
+*.log
+
+# env
+.env
+.env.*.local
+
+# caches
+.cache
+*.tsbuildinfo
+
+# editors / AI tooling
+.idea
+.DS_Store
+.claude
+*.swp
+
+# private working notes
+PROMPT.md
