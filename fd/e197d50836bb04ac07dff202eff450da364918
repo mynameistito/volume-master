@@ -1,0 +1,25 @@
+__tests__/protocol.test.ts
+  s_ab175e443ea65a::t_5f9f618e323fc4 1-37
+__tests__/volume-store.test.ts
+  s_ab175e443ea65a::t_c68cc5c5d0ed90 10
+tsconfig.json
+  s_ab175e443ea65a::t_3a5c651b92499d 24
+__tests__/audible.test.ts
+  s_ab175e443ea65a::t_c499aa0664d1ca 4
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.4.4",
+  "base_commit_sha": "fde197d50836bb04ac07dff202eff450da364918",
+  "prompts": {},
+  "sessions": {
+    "s_ab175e443ea65a": {
+      "agent_id": {
+        "tool": "opencode",
+        "id": "ses_1ef95ffe8ffe13mgZKeA5K5tiL",
+        "model": "unknown"
+      },
+      "human_author": "Tito <github@mynameistito.com>"
+    }
+  }
+}
