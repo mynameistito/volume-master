@@ -1,0 +1,21 @@
+package.json
+  s_606bc3404b2216::t_d4159701b177b3 21
+README.md
+  s_606bc3404b2216::t_4a6a849d307acf 3,5-8,10,12-16,18,21-26,29,32-33,36-38,47-55,61
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.4.4",
+  "base_commit_sha": "c0ffdb10c9d6c3dd1f47dae20e2d16e320a5b6c1",
+  "prompts": {},
+  "sessions": {
+    "s_606bc3404b2216": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "0cfefda0-6731-4052-b279-5449f4c1d7a3",
+        "model": "claude-opus-4-7"
+      },
+      "human_author": "Tito <github@mynameistito.com>"
+    }
+  }
+}
