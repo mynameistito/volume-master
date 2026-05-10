@@ -8,8 +8,6 @@ afterAll(async () => {
   await GlobalRegistrator.unregister();
 });
 
-// happy-dom doesn't provide WebAudio. Stub the bare minimum the gain-graph
-// touches so we can exercise the wiring logic deterministically.
 let lastGainNode: StubGainNode;
 let mediaSourceCallCount = 0;
 

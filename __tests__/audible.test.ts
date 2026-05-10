@@ -1,7 +1,7 @@
 import { afterEach, beforeEach, describe, expect, it } from "bun:test";
 import { __resetMemoryStore, setVolume } from "@/storage/volume-store";
 import { listAudibleTabs, listManagedTabs } from "@/tabs/audible";
-import { resetBrowserStub, setFakeTabs } from "../../../tests/setup";
+import { resetBrowserStub, setFakeTabs } from "../tests/setup";
 
 beforeEach(() => {
   __resetMemoryStore();

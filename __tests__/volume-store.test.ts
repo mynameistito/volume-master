@@ -7,7 +7,7 @@ import {
   removeVolume,
   setVolume,
 } from "@/storage/volume-store";
-import { resetBrowserStub } from "../../../tests/setup";
+import { resetBrowserStub } from "../tests/setup";
 
 afterEach(() => {
   __resetMemoryStore();

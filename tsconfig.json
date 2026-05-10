@@ -21,5 +21,5 @@
       "@/*": ["./src/*"]
     }
   },
-  "include": ["src", "scripts", "wxt.config.ts", ".wxt/wxt.d.ts"]
+  "include": ["src", "scripts", "__tests__", "wxt.config.ts", ".wxt/wxt.d.ts"]
 }
