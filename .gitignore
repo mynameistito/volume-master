@@ -35,5 +35,8 @@ logs
 # extension signing key
 key.pem
 
+# changeset temp file used by ci-release
+.changeset/RELEASE_NOTES.md
+
 # private working notes
 PROMPT.md
