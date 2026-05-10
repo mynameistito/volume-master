@@ -57,3 +57,24 @@ try {
 } catch {
   run(`gh release upload ${tag} dist/volume-master-*.zip --clobber`);
 }
+
+const EXTENSION_APPID = "ejggkdaeicpnfgijniabadejblpmmdgc";
+const REPO = "mynameistito/volume-master";
+const chromeZipUrl = `https://github.com/${REPO}/releases/download/${tag}/volume-master-${version}-chrome.zip`;
+
+const updatesXml = `<?xml version='1.0' encoding='UTF-8'?>
+<gupdate xmlns='http://www.google.com/update2/response' protocol='2.0'>
+  <app appid='${EXTENSION_APPID}'>
+    <updatecheck codebase='${chromeZipUrl}' version='${version}' />
+  </app>
+</gupdate>
+`;
+
+const updatesPath = resolve(ROOT, "updates.xml");
+writeFileSync(updatesPath, updatesXml);
+
+run("git add updates.xml");
+run(
+  `git -c user.name="github-actions[bot]" -c user.email="github-actions[bot]@users.noreply.github.com" commit -m "chore: update updates.xml for ${tag}"`
+);
+run("git push origin HEAD:main");

@@ -32,5 +32,8 @@ logs
 .claude
 *.swp
 
+# extension signing key
+key.pem
+
 # private working notes
 PROMPT.md
