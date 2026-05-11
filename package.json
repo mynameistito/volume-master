@@ -1,7 +1,7 @@
 {
   "name": "volume-master",
   "description": "Per-tab volume control with up to 600% boost. Cross-browser (Chrome + Firefox).",
-  "version": "0.5.0",
+  "version": "0.6.0",
   "private": true,
   "type": "module",
   "scripts": {
