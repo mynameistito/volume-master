@@ -37,3 +37,6 @@ PROMPT.md
 
 # Package-lock.json
 package-lock.json
+
+# Priv Key
+key.pem

@@ -24,6 +24,15 @@ describe("decodeMessage", () => {
     expect(r.isErr()).toBe(true);
   });
 
+  it("rejects vm/set-volume with non-numeric tabId", () => {
+    const r = decodeMessage({
+      kind: "vm/set-volume",
+      tabId: "x",
+      volume: 100,
+    });
+    expect(r.isErr()).toBe(true);
+  });
+
   it("rejects unknown kind", () => {
     const r = decodeMessage({ kind: "garbage" });
     expect(r.isErr()).toBe(true);
@@ -33,5 +42,31 @@ describe("decodeMessage", () => {
     expect(decodeMessage(null).isErr()).toBe(true);
     expect(decodeMessage("hi").isErr()).toBe(true);
     expect(decodeMessage(42).isErr()).toBe(true);
+  });
+
+  it("rejects missing kind", () => {
+    expect(decodeMessage({}).isErr()).toBe(true);
+    expect(decodeMessage({ kind: 7 }).isErr()).toBe(true);
+  });
+
+  it("rejects vm/get-volume with non-numeric tabId", () => {
+    expect(decodeMessage({ kind: "vm/get-volume" }).isErr()).toBe(true);
+    expect(decodeMessage({ kind: "vm/get-volume", tabId: "x" }).isErr()).toBe(
+      true
+    );
+  });
+
+  it("accepts vm/get-volume", () => {
+    const r = decodeMessage({ kind: "vm/get-volume", tabId: 3 });
+    expect(r.isOk()).toBe(true);
+  });
+
+  it("accepts vm/volume-changed", () => {
+    const r = decodeMessage({
+      kind: "vm/volume-changed",
+      tabId: 1,
+      volume: 50,
+    });
+    expect(r.isOk()).toBe(true);
   });
 });

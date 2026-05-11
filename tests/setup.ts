@@ -50,6 +50,7 @@ function makeArea(): FakeArea {
 }
 
 export interface FakeTab {
+  active?: boolean;
   audible?: boolean;
   favIconUrl?: string;
   id?: number;
@@ -57,13 +58,31 @@ export interface FakeTab {
   url?: string;
 }
 
+export type RuntimeListener = (
+  msg: unknown,
+  sender: unknown,
+  sendResponse: (r: unknown) => void
+) => boolean | undefined;
+
+export interface SetIconCall {
+  imageData?: Record<number, unknown>;
+  path?: Record<number, string>;
+  tabId?: number;
+}
+
 interface FakeBrowser {
+  __runtimeListeners: RuntimeListener[];
+  __setIconCalls: SetIconCall[];
   __tabs: FakeTab[];
+  action: {
+    setIcon: (details: SetIconCall) => Promise<void>;
+  };
   runtime: {
+    getURL: (path: string) => string;
     id: string;
     onMessage: {
-      addListener: (fn: unknown) => void;
-      removeListener: (fn: unknown) => void;
+      addListener: (fn: RuntimeListener) => void;
+      removeListener: (fn: RuntimeListener) => void;
     };
     sendMessage: (msg: unknown) => Promise<unknown>;
   };
@@ -72,6 +91,8 @@ interface FakeBrowser {
     session: FakeArea;
   };
   tabs: {
+    get: (id: number) => Promise<FakeTab>;
+    onActivated: { addListener: (fn: unknown) => void };
     onRemoved: { addListener: (fn: unknown) => void };
     query: (q: { audible?: boolean }) => Promise<FakeTab[]>;
     sendMessage: (id: number, msg: unknown) => Promise<unknown>;
@@ -80,12 +101,28 @@ interface FakeBrowser {
 }
 
 const fake: FakeBrowser = {
+  __setIconCalls: [],
+  __runtimeListeners: [],
   __tabs: [],
+  action: {
+    setIcon: (details) => {
+      fake.__setIconCalls.push(details);
+      return Promise.resolve();
+    },
+  },
   runtime: {
     id: "test-extension",
+    getURL: (path) => `chrome-extension://test${path}`,
     onMessage: {
-      addListener: () => undefined,
-      removeListener: () => undefined,
+      addListener: (fn) => {
+        fake.__runtimeListeners.push(fn);
+      },
+      removeListener: (fn) => {
+        const i = fake.__runtimeListeners.indexOf(fn);
+        if (i >= 0) {
+          fake.__runtimeListeners.splice(i, 1);
+        }
+      },
     },
     sendMessage: () => Promise.resolve(undefined),
   },
@@ -94,6 +131,13 @@ const fake: FakeBrowser = {
     session: makeArea(),
   },
   tabs: {
+    get: (id) => {
+      const t = fake.__tabs.find((x) => x.id === id);
+      if (!t) {
+        return Promise.reject(new Error(`no tab ${id}`));
+      }
+      return Promise.resolve(t);
+    },
     query: (q) => {
       if (q.audible === true) {
         return Promise.resolve(fake.__tabs.filter((t) => t.audible));
@@ -101,6 +145,7 @@ const fake: FakeBrowser = {
       return Promise.resolve([...fake.__tabs]);
     },
     sendMessage: () => Promise.resolve(undefined),
+    onActivated: { addListener: () => undefined },
     onRemoved: { addListener: () => undefined },
     update: () => Promise.resolve(),
   },
@@ -113,6 +158,8 @@ const fake: FakeBrowser = {
 
 export function resetBrowserStub(): void {
   fake.__tabs.length = 0;
+  fake.__setIconCalls.length = 0;
+  fake.__runtimeListeners.length = 0;
   for (const k of Object.keys(fake.storage.local.__data)) {
     delete fake.storage.local.__data[k];
   }

@@ -147,4 +147,55 @@ describe("gain-graph", () => {
     attach(el);
     expect(mediaSourceCallCount).toBe(1);
   });
+
+  it("setGain swallows AudioContext.resume() rejection", async () => {
+    class RejectCtx extends StubAudioContext {
+      override state: "suspended" | "running" = "suspended";
+      override resume = () => Promise.reject(new Error("denied"));
+    }
+    (
+      globalThis as unknown as { AudioContext: typeof StubAudioContext }
+    ).AudioContext = RejectCtx;
+    const { setGain } = await import("@/audio/gain-graph");
+    setGain(100);
+    await new Promise((r) => setTimeout(r, 0));
+    (
+      globalThis as unknown as { AudioContext: typeof StubAudioContext }
+    ).AudioContext = StubAudioContext;
+  });
+
+  it("setGain resumes a suspended AudioContext", async () => {
+    let resumed = 0;
+    class SuspendedCtx extends StubAudioContext {
+      override state: "suspended" | "running" = "suspended";
+      override resume = () => {
+        resumed++;
+        return Promise.resolve();
+      };
+    }
+    (
+      globalThis as unknown as { AudioContext: typeof StubAudioContext }
+    ).AudioContext = SuspendedCtx;
+    const { setGain } = await import("@/audio/gain-graph");
+    setGain(100);
+    expect(resumed).toBe(1);
+    (
+      globalThis as unknown as { AudioContext: typeof StubAudioContext }
+    ).AudioContext = StubAudioContext;
+  });
+
+  it("observe attaches to media nodes added later", async () => {
+    document.body.innerHTML = "";
+    const { observe } = await import("@/audio/gain-graph");
+    const obs = observe(document.body);
+    const audio = document.createElement("audio");
+    document.body.appendChild(audio);
+    const wrapper = document.createElement("div");
+    const nested = document.createElement("video");
+    wrapper.appendChild(nested);
+    document.body.appendChild(wrapper);
+    await new Promise((r) => setTimeout(r, 0));
+    obs.disconnect();
+    expect(mediaSourceCallCount).toBeGreaterThanOrEqual(2);
+  });
 });

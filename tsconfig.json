@@ -18,8 +18,16 @@
     "noUncheckedIndexedAccess": true,
     "noImplicitOverride": true,
     "paths": {
-      "@/*": ["./src/*"]
+      "@/*": ["./src/*"],
+      "@tests/*": ["./tests/*"]
     }
   },
-  "include": ["src", "scripts", "__tests__", "wxt.config.ts", ".wxt/wxt.d.ts"]
+  "include": [
+    "src",
+    "scripts",
+    "tests",
+    "__tests__",
+    "wxt.config.ts",
+    ".wxt/wxt.d.ts"
+  ]
 }

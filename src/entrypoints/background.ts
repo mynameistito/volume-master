@@ -6,6 +6,7 @@
 //  3. Garbage-collect stored gains when tabs close.
 import { browser } from "wxt/browser";
 import { defineBackground } from "wxt/utils/define-background";
+import { updateActionIcon } from "@/action-icon";
 import { onMessage, sendToTab } from "@/messaging/bus";
 import { getVolume, removeVolume, setVolume } from "@/storage/volume-store";
 import { listManagedTabs } from "@/tabs/audible";
@@ -28,6 +29,7 @@ export default defineBackground(() => {
           tabId: msg.tabId,
           volume: stored,
         }).catch(() => undefined);
+        updateActionIcon(msg.tabId, stored).catch(() => undefined);
         return { tabId: msg.tabId, volume: stored };
       }
 
@@ -42,5 +44,13 @@ export default defineBackground(() => {
 
   browser.tabs.onRemoved.addListener((tabId: number) => {
     removeVolume(tabId).catch(() => undefined);
+  });
+
+  // Reapply the overlay icon when a tab becomes active — covers SW restarts
+  // where Chrome may have dropped the per-tab icon override.
+  browser.tabs.onActivated.addListener(({ tabId }) => {
+    getVolume(tabId)
+      .then((v) => updateActionIcon(tabId, v))
+      .catch(() => undefined);
   });
 });
