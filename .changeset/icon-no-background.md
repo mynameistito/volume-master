@@ -2,4 +2,4 @@
 "volume-master": patch
 ---
 
-Remove dark rounded-square background from extension icon. Icon is now just the transparent speaker + boost waves so it sits cleanly on any toolbar theme.
+Redesign extension icon: drop dark rounded-square background and speaker body. Icon is now just the three boost-wave arcs (scaled up) on a transparent canvas so it sits cleanly on any toolbar theme.
