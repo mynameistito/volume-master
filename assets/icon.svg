@@ -1,11 +1,15 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" fill="none">
-  <!-- Boost waves only, 4 arcs, widely spaced -->
-  <path d="M36 50 Q56 64 36 78" stroke="#38BDF8" stroke-width="7"
-        stroke-linecap="round" fill="none" opacity="1"/>
-  <path d="M36 36 Q84 64 36 92" stroke="#38BDF8" stroke-width="7"
-        stroke-linecap="round" fill="none" opacity="0.72"/>
-  <path d="M36 22 Q124 64 36 106" stroke="#38BDF8" stroke-width="7"
-        stroke-linecap="round" fill="none" opacity="0.5"/>
-  <path d="M36 8 Q176 64 36 120" stroke="#38BDF8" stroke-width="7"
-        stroke-linecap="round" fill="none" opacity="0.3"/>
+  <!-- 4 concentric circular arcs radiating from (32,64), spanning ±60° on the right -->
+  <g stroke="url(#wave)" stroke-width="8" stroke-linecap="round" fill="none">
+    <path d="M43 45 A22 22 0 0 1 43 83" opacity="1"/>
+    <path d="M51 31 A38 38 0 0 1 51 97" opacity="0.75"/>
+    <path d="M59 17 A54 54 0 0 1 59 111" opacity="0.5"/>
+    <path d="M67 3 A70 70 0 0 1 67 125" opacity="0.28"/>
+  </g>
+  <defs>
+    <linearGradient id="wave" x1="32" y1="64" x2="120" y2="64" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#7DD3FC"/>
+      <stop offset="1" stop-color="#0EA5E9"/>
+    </linearGradient>
+  </defs>
 </svg>
