@@ -1,0 +1,21 @@
+.github/workflows/release.yml
+  s_dde7c58ffdecb0::t_259b03e917d552 16-17
+wxt.config.ts
+  s_dde7c58ffdecb0::t_902221ceb1af44 38-41
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.4.4",
+  "base_commit_sha": "e1f4ead281426a0d39ebd4de3c618cf90e719556",
+  "prompts": {},
+  "sessions": {
+    "s_dde7c58ffdecb0": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "3d90334d-bbc0-4c0e-b909-af8bf58cebff",
+        "model": "claude-opus-4-7"
+      },
+      "human_author": "Tito <github@mynameistito.com>"
+    }
+  }
+}
