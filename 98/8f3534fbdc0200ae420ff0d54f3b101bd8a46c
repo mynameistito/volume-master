@@ -1,0 +1,19 @@
+.changeset/icon-refresh-and-volume-pill.md
+  s_bd9d1f1b55ae13::t_a4571a28569725 5-10
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.4.4",
+  "base_commit_sha": "988f3534fbdc0200ae420ff0d54f3b101bd8a46c",
+  "prompts": {},
+  "sessions": {
+    "s_bd9d1f1b55ae13": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "517a00ef-b01f-41f6-902c-7beaaf0e45b8",
+        "model": "claude-opus-4-7"
+      },
+      "human_author": "Tito <github@mynameistito.com>"
+    }
+  }
+}
