@@ -1,0 +1,23 @@
+src/ui/hooks/use-theme.ts
+  s_24b0686bab6058::t_58ebe52794517d 1-25
+src/ui/routes/__root.tsx
+  s_24b0686bab6058::t_3b4c430a17383f 2,7,23-103
+src/ui/theme.css
+  s_24b0686bab6058::t_8cede1554bc352 23-36
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.4.4",
+  "base_commit_sha": "212a235c43b6047bf9d6f1be43cd7c6d636f1ff7",
+  "prompts": {},
+  "sessions": {
+    "s_24b0686bab6058": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "a5da03b5-057f-469a-8b10-111d13eb1b9d",
+        "model": "claude-opus-4-7"
+      },
+      "human_author": "Tito <github@mynameistito.com>"
+    }
+  }
+}
