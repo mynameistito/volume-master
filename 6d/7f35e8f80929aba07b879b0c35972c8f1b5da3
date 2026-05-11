@@ -1,0 +1,19 @@
+src/audio/gain-graph.ts
+  s_bd9d1f1b55ae13::t_87d6938461adf6 222-224
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.4.4",
+  "base_commit_sha": "6d7f35e8f80929aba07b879b0c35972c8f1b5da3",
+  "prompts": {},
+  "sessions": {
+    "s_bd9d1f1b55ae13": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "517a00ef-b01f-41f6-902c-7beaaf0e45b8",
+        "model": "claude-opus-4-7"
+      },
+      "human_author": "Tito <github@mynameistito.com>"
+    }
+  }
+}
