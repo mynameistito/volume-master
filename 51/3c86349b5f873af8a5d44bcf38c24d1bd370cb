@@ -1,0 +1,21 @@
+src/ui/theme.css
+  s_24b0686bab6058::t_db21174f117d07 3,5,16-18,22-39
+src/entrypoints/popup/index.html
+  s_24b0686bab6058::t_718247df21dcc1 2,8-15
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.4.4",
+  "base_commit_sha": "513c86349b5f873af8a5d44bcf38c24d1bd370cb",
+  "prompts": {},
+  "sessions": {
+    "s_24b0686bab6058": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "a5da03b5-057f-469a-8b10-111d13eb1b9d",
+        "model": "claude-opus-4-7"
+      },
+      "human_author": "Tito <github@mynameistito.com>"
+    }
+  }
+}
