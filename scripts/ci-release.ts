@@ -13,6 +13,15 @@ const pkg = JSON.parse(readFileSync(resolve(ROOT, "package.json"), "utf-8"));
 const version = pkg.version as string;
 const tag = `v${version}`;
 
+const remoteTag = execSync(`git ls-remote --tags origin refs/tags/${tag}`, {
+  cwd: ROOT,
+  encoding: "utf-8",
+}).trim();
+if (remoteTag) {
+  console.log(`Tag ${tag} already published on origin. Skipping release.`);
+  process.exit(0);
+}
+
 run("bunx wxt prepare");
 run("bun run icons");
 run("bun run check");
