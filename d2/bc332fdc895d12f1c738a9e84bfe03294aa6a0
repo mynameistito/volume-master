@@ -1,0 +1,21 @@
+src/entrypoints/popup/main.tsx
+  s_24b0686bab6058::t_fc3557d98ac924 7-17
+src/ui/theme.css
+  s_24b0686bab6058::t_767effaa5c9952 22
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.4.4",
+  "base_commit_sha": "d2bc332fdc895d12f1c738a9e84bfe03294aa6a0",
+  "prompts": {},
+  "sessions": {
+    "s_24b0686bab6058": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "a5da03b5-057f-469a-8b10-111d13eb1b9d",
+        "model": "claude-opus-4-7"
+      },
+      "human_author": "Tito <github@mynameistito.com>"
+    }
+  }
+}
