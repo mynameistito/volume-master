@@ -39,7 +39,11 @@ export function TabRow({ tab, isActive, onSelect }: Props) {
         {tab.volume}%
       </span>
       {tab.audible ? (
-        <span aria-hidden className="vm-pulse" title="Audible" />
+        <span
+          aria-hidden
+          className="size-1.5 animate-[vm-pulse_1.6s_ease-out_infinite] rounded-full bg-accent"
+          title="Audible"
+        />
       ) : (
         <span aria-hidden className="size-1.5" />
       )}
