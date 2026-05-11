@@ -1,0 +1,19 @@
+wxt.config.ts
+  s_24b0686bab6058::t_55663090d93087 77-79
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.4.4",
+  "base_commit_sha": "567fee4085388c062f248cf6bc7a576275d71362",
+  "prompts": {},
+  "sessions": {
+    "s_24b0686bab6058": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "a5da03b5-057f-469a-8b10-111d13eb1b9d",
+        "model": "claude-opus-4-7"
+      },
+      "human_author": "Tito <github@mynameistito.com>"
+    }
+  }
+}
