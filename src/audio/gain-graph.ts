@@ -36,18 +36,39 @@ let state: GraphState | null = null;
 let currentPercent = 100;
 let gestureHooked = false;
 
+// Compressor params for the two modes. `ratio: 1` makes the compressor a
+// mathematical pass-through regardless of threshold, so we can leave the node
+// in the signal path while in bypass mode without colouring the audio.
+const LIMITER_ACTIVE = {
+  threshold: -3,
+  knee: 6,
+  ratio: 4,
+  attack: 0.003,
+  release: 0.1,
+};
+const LIMITER_BYPASS = {
+  threshold: 0,
+  knee: 0,
+  ratio: 1,
+  attack: 0.003,
+  release: 0.1,
+};
+
+function applyLimiter(c: DynamicsCompressorNode, on: boolean): void {
+  const p = on ? LIMITER_ACTIVE : LIMITER_BYPASS;
+  c.threshold.value = p.threshold;
+  c.knee.value = p.knee;
+  c.ratio.value = p.ratio;
+  c.attack.value = p.attack;
+  c.release.value = p.release;
+}
+
 function makeGraph(ctx: AudioContext): GraphState {
   const gain = ctx.createGain();
   gain.gain.value = 1;
 
-  // Gentle limiter — only engages on peaks above -3 dBFS. Lets the boosted
-  // signal through cleanly until it would clip, then catches the top.
   const compressor = ctx.createDynamicsCompressor();
-  compressor.threshold.value = -3;
-  compressor.knee.value = 6;
-  compressor.ratio.value = 4;
-  compressor.attack.value = 0.003;
-  compressor.release.value = 0.1;
+  applyLimiter(compressor, currentPercent > 100);
 
   gain.connect(compressor);
   compressor.connect(ctx.destination);
@@ -144,14 +165,17 @@ export function setGain(volumePercent: number): void {
     const s = ensureGraph();
     s.volume = sanitized;
     s.gain.gain.value = sanitized / 100;
+    applyLimiter(s.compressor, true);
     if (s.ctx.state === "suspended") {
       s.ctx.resume().catch(() => undefined);
     }
   } else if (state) {
-    // Returning to bypass while elements remain wired to the graph: set the
-    // gain node to unity and let `el.volume` provide the scaling.
+    // Returning to bypass while elements remain wired to the graph: unity
+    // gain + neutralised compressor (ratio=1) so the chain is a pass-through.
+    // `el.volume` provides the scaling.
     state.volume = sanitized;
     state.gain.gain.value = 1;
+    applyLimiter(state.compressor, false);
   }
 
   // Re-apply to every tracked element. Drops refs whose target has been GC'd.

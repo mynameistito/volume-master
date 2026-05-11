@@ -134,6 +134,17 @@ describe("gain-graph", () => {
     expect(lastGainNode?.gain.value).toBe(1);
   });
 
+  it("returning to bypass neutralises the compressor (ratio=1 pass-through)", async () => {
+    const { setGain } = await import("@/audio/gain-graph");
+    setGain(300);
+    expect(lastCompressor?.ratio.value).toBe(4);
+    expect(lastCompressor?.threshold.value).toBe(-3);
+    setGain(100);
+    expect(lastCompressor?.ratio.value).toBe(1);
+    expect(lastCompressor?.threshold.value).toBe(0);
+    expect(lastCompressor?.knee.value).toBe(0);
+  });
+
   it("setGain clamps negative values to 0", async () => {
     const { setGain, currentVolume } = await import("@/audio/gain-graph");
     const el = makeMedia();
