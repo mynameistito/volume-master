@@ -62,4 +62,4 @@ Trade-off vs. `tabCapture`: doesn't catch audio from page-internal
 
 ## License
 
-MIT.
+[MIT](LICENSE)
