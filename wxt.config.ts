@@ -74,4 +74,7 @@ export default defineConfig({
     };
   },
   outDir: "dist",
+  zip: {
+    zipSources: false,
+  },
 });
