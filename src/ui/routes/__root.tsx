@@ -5,7 +5,14 @@ export function RootLayout() {
     <div className="flex min-h-full flex-col">
       <header className="flex items-center justify-between border-border border-b px-3.5 py-3">
         <div className="flex items-center gap-2">
-          <span aria-hidden className="vm-brand-mark" />
+          <img
+            alt=""
+            aria-hidden
+            className="size-[22px]"
+            height={22}
+            src="/icon/icon-32.png"
+            width={22}
+          />
           <span className="font-semibold tracking-wide">Volume Master</span>
         </div>
         <nav className="flex gap-1">
