@@ -20,6 +20,20 @@
   color-scheme: dark;
 }
 
+:root[data-theme="light"] {
+  --color-bg: #ffffff;
+  --color-elev: #f5f5f5;
+  --color-elev-2: #e5e5e5;
+  --color-border: #d4d4d4;
+  --color-fg: #111111;
+  --color-fg-dim: #4b5563;
+  --color-fg-mute: #6b7280;
+  --color-accent: #0ea5e9;
+  --color-accent-strong: #0284c7;
+  --color-warn: #b45309;
+  color-scheme: light;
+}
+
 @layer base {
   html,
   body {
