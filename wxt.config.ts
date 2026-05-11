@@ -35,6 +35,11 @@ export default defineConfig({
   }),
   manifest: ({ browser }) => {
     const key = browser === "chrome" ? chromeManifestKey() : undefined;
+    if (browser === "chrome" && process.env.CI && !key) {
+      throw new Error(
+        "CHROME_EXTENSION_KEY_PEM is not set in CI. Refusing to build Chrome without a stable extension ID. Set the repo secret and re-run."
+      );
+    }
     return {
       name: "Volume Master",
       description:
