@@ -1,8 +1,4 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" fill="none">
-  <!-- Background: rounded square, dark-mode optimized -->
-  <rect width="128" height="128" rx="28" fill="#0B0F14"/>
-  <rect x="1" y="1" width="126" height="126" rx="27" stroke="url(#stroke)" stroke-opacity="0.35"/>
-
   <!-- Speaker body -->
   <path d="M30 50 L52 50 L74 32 L74 96 L52 78 L30 78 Z"
         fill="url(#speaker)"
