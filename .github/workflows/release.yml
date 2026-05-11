@@ -29,3 +29,5 @@ jobs:
           publish: bun run ci:release
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          CHROME_EXTENSION_KEY_PEM: ${{ secrets.CHROME_EXTENSION_KEY_PEM }}
+          REQUIRE_CHROME_KEY: "1"
