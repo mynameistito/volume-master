@@ -1,0 +1,28 @@
+tests/setup.ts
+  s_8020a96a58501d::t_eabbce727b2a10 53
+__tests__/action-icon.test.ts
+  s_8020a96a58501d::t_c83d100add7ac4 179
+  s_8020a96a58501d::t_80bbaabe0104ad 119
+  s_8020a96a58501d::t_a6ffde3aac0371 147
+  s_8020a96a58501d::t_d4511c7b976c85 131-144
+src/action-icon.ts
+  s_8020a96a58501d::t_46d895a57d2e99 21
+__tests__/volume-store.test.ts
+  s_8020a96a58501d::t_9b46ed29ecc7e6 65
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.4.4",
+  "base_commit_sha": "218c479ffaef5e83b1c01ae11519f1d44275db87",
+  "prompts": {},
+  "sessions": {
+    "s_8020a96a58501d": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "19ab7ea4-d5a1-40d4-89f4-433b7e8e1fd3",
+        "model": "claude-opus-4-7"
+      },
+      "human_author": "Tito <github@mynameistito.com>"
+    }
+  }
+}
