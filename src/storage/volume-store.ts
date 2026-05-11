@@ -12,17 +12,14 @@ import {
 import type { VolumePercent } from "@/types";
 
 interface StorageArea {
-  get: (keys: string | string[] | null) => Promise<Record<string, unknown>>;
+  get: (keys: string | string[]) => Promise<Record<string, unknown>>;
   remove: (keys: string | string[]) => Promise<void>;
   set: (items: Record<string, unknown>) => Promise<void>;
 }
 
 const memory = new Map<string, number>();
 
-function listKeys(keys: string | string[] | null): string[] {
-  if (keys == null) {
-    return [...memory.keys()];
-  }
+function listKeys(keys: string | string[]): string[] {
   return Array.isArray(keys) ? keys : [keys];
 }
 

@@ -1,7 +1,7 @@
 import { afterEach, beforeEach, describe, expect, it } from "bun:test";
+import { resetBrowserStub, setFakeTabs } from "@tests/setup";
 import { __resetMemoryStore, setVolume } from "@/storage/volume-store";
 import { listAudibleTabs, listManagedTabs } from "@/tabs/audible";
-import { resetBrowserStub, setFakeTabs } from "../tests/setup";
 
 beforeEach(() => {
   __resetMemoryStore();
@@ -22,6 +22,18 @@ describe("listAudibleTabs", () => {
     expect(out.length).toBe(1);
     expect(out[0]?.tabId).toBe(1);
     expect(out[0]?.volume).toBe(250);
+  });
+});
+
+describe("listManagedTabs filters tabs without an id", () => {
+  it("skips tabs lacking a numeric id", async () => {
+    setFakeTabs([
+      { id: 1, audible: true },
+      { audible: true }, // no id → must be filtered out
+    ]);
+    const out = await listManagedTabs();
+    expect(out.length).toBe(1);
+    expect(out[0]?.tabId).toBe(1);
   });
 });
 
