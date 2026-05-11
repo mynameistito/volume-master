@@ -1,0 +1,19 @@
+assets/icon.svg
+  s_24b0686bab6058::t_ec431a6a60a32e 2-3,5-10
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.4.4",
+  "base_commit_sha": "6be6fa2f72382afdc8ea77594396fa3824871968",
+  "prompts": {},
+  "sessions": {
+    "s_24b0686bab6058": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "a5da03b5-057f-469a-8b10-111d13eb1b9d",
+        "model": "claude-opus-4-7"
+      },
+      "human_author": "Tito <github@mynameistito.com>"
+    }
+  }
+}
