@@ -2,7 +2,7 @@ import { RouterProvider } from "@tanstack/react-router";
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
 import { router } from "@/ui/router";
-import "../../ui/theme.css";
+import "@/ui/theme.css";
 
 // Apply stored theme before the first paint so light-mode users don't flash
 // dark. Inline scripts are blocked by the MV3 extension CSP, so this has to
