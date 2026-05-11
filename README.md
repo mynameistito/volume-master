@@ -1,50 +1,41 @@
 # Volume Master
 
-Per-tab volume control with up to **600% boost** for Chrome and Firefox.
-Dark-mode-first, minimal UI. TypeScript + WXT + React + TanStack Router.
+Per-tab volume control with up to **600% boost**. Chrome + Firefox.
 
-A clean-slate rewrite of the upstream "Volume Master" extension. Strips the
-ad/upsell layer, drops Chrome-only `tabCapture` + offscreen-document
-machinery in favor of a content-script WebAudio gain graph that works
-identically on Chrome and Firefox.
+Clean-slate rewrite of the upstream extension. No ads, no nags. Uses a
+content-script WebAudio gain graph (compressor + soft-clipper + perceptual
+curve) instead of `tabCapture`, so the same code path works on both browsers
+with no extra permissions.
 
-## Quickstart
+## Install
 
-```sh
-bun install            # WXT auto-runs `wxt prepare` to generate types
-bun run icons          # rasterize assets/icon.svg → public/icon/*.png
-bun run dev            # Chrome dev (loads .output/chrome-mv3 in a temp profile)
-bun run dev:firefox    # Firefox dev (loads .output/firefox-mv2)
-```
+**Chrome / Brave / Edge** — `chrome://extensions` → Developer mode → Load
+unpacked → `dist/chrome-mv3/`.
 
-## Quality gates
+**Firefox** — `about:debugging#/runtime/this-firefox` → Load Temporary
+Add-on → any file in `dist/firefox-mv2/`.
+
+## Develop
 
 ```sh
-bun run check          # ultracite (biome) lint + format
-bun run typecheck      # tsgo --noEmit
-bun test               # bun test (co-located __tests__/)
+bun install
+bun run dev            # Chrome
+bun run dev:firefox    # Firefox
+bun run check          # lint + format (ultracite)
+bun run typecheck
+bun test
 ```
 
-## Build & ship
+## Build
 
 ```sh
-bun run build:all      # chrome-mv3 + firefox-mv2 production builds
-bun run zip:all        # zipped artifacts under dist/
-bun run changeset      # record a release intent → .changeset/*.md
+bun run build:all      # chrome-mv3 + firefox-mv2
+bun run zip:all        # zipped artifacts in dist/
 ```
 
-Tag a commit `vX.Y.Z` to trigger `.github/workflows/release.yml`. CI lints,
-typechecks, tests, builds both browsers, and attaches the resulting zips to
-the GitHub release. No store-publishing automation — pushes to the Chrome
-Web Store / Firefox Add-ons stay manual.
-
-### Loading the unpacked build
-
-**Chrome / Brave / Edge** — `chrome://extensions` → enable Developer mode →
-"Load unpacked" → select `dist/chrome-mv3/`.
-
-**Firefox** — `about:debugging#/runtime/this-firefox` → "Load Temporary
-Add-on" → pick any file inside `dist/firefox-mv2/`.
+Tag `vX.Y.Z` to trigger `.github/workflows/release.yml` — builds both
+browsers and attaches zips to the GitHub release. Store publishing is
+manual.
 
 ## Architecture
 
@@ -53,50 +44,21 @@ popup ──msg──▶ background ──msg──▶ content script (each tab)
  (UI)            (router)            (WebAudio gain graph)
 ```
 
-| Path | Role |
-|---|---|
-| `src/entrypoints/background.ts` | MV3 background. Routes popup messages, persists per-tab gain, broadcasts updates, GCs storage on tab close. |
-| `src/entrypoints/content.ts` | Wraps every `<audio>`/`<video>` in `MediaElementAudioSourceNode → GainNode → destination`. `MutationObserver` catches dynamically-added media. |
-| `src/entrypoints/popup/` | React 19 + TanStack Router popup (`/`, `/settings`). |
-| `src/audio/gain-graph.ts` | WebAudio plumbing. Singleton `AudioContext` + `GainNode` per page, idempotent `attach()` per element. |
-| `src/messaging/` | `protocol.ts` — typed messages with shape validation returning `Result`. `bus.ts` — `send` / `sendToTab` / `onMessage`. |
-| `src/storage/volume-store.ts` | `browser.storage.session`-backed per-tab gain map. In-memory fallback for tests. |
-| `src/tabs/audible.ts` | `browser.tabs.query` wrapper that hydrates tabs with their stored gain. |
-| `src/ui/` | Routes, components (`VolumeSlider`, `TabList`, `TabRow`), and `theme.css`. |
-| `src/config.ts` | `VOLUME_MIN/MAX/DEFAULT`, presets, storage prefixes. |
-| `assets/icon.svg` | Source vector. `scripts/rasterize-icons.ts` → 16/32/48/128 PNGs. |
+Content script wraps each `<audio>`/`<video>` in
+`MediaElementAudioSourceNode → GainNode → DynamicsCompressor → destination`.
+`MutationObserver` catches dynamically-added media. Per-tab gain persists in
+`browser.storage.session` and is GC'd when the tab closes.
 
-### Why content-script WebAudio (and not `tabCapture`)?
+Trade-off vs. `tabCapture`: doesn't catch audio from page-internal
+`AudioContext` or WebRTC. Acceptable for v1.
 
-The upstream extension used `chrome.tabCapture.getMediaStreamId` + an
-offscreen document to run a `MediaStreamAudioSourceNode`. That API does not
-exist on Firefox MV3, and the offscreen-document machinery is Chromium-only,
-so a Firefox port required a second codepath.
-
-Wrapping individual `HTMLMediaElement`s in a `MediaElementAudioSourceNode`
-gain graph from a content script gives identical behavior on both browsers
-with **no** extra permissions (no `tabCapture`, no `offscreen`,
-no `getUserMedia` prompt). The trade-off: it doesn't capture audio that
-bypasses media elements (page-internal `AudioContext`, WebRTC). That's
-acceptable for v1; a tab-capture fallback can be added later behind a flag.
-
-## Keyboard shortcuts (popup focused)
+## Shortcuts (popup focused)
 
 | Key | Action |
 |---|---|
-| `0` – `6` | Set volume to 0%, 100%, 200%, 300%, 400%, 500%, 600% |
 | `↑` / `→` | +10% |
 | `↓` / `←` | −10% |
-| Mouse wheel on slider | ±10% |
-
-## Removed vs. upstream
-
-- Promo notifications, rating nags, "discover other extensions" pane.
-- Scroll-direction-invert toggle.
-- Equalizer / spectrum analyser UI (engine present in upstream but hidden;
-  left out of v1 — easy to re-introduce as a route).
-- 56-locale i18n bundle (English-only initially; restoration is a future
-  task once strings stabilize).
+| Wheel on slider | ±10% |
 
 ## License
 
