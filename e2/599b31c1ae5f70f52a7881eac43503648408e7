@@ -1,0 +1,19 @@
+.github/workflows/release.yml
+  s_dde7c58ffdecb0::t_43a2feb6712961 32-33
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.4.4",
+  "base_commit_sha": "e2599b31c1ae5f70f52a7881eac43503648408e7",
+  "prompts": {},
+  "sessions": {
+    "s_dde7c58ffdecb0": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "3d90334d-bbc0-4c0e-b909-af8bf58cebff",
+        "model": "claude-opus-4-7"
+      },
+      "human_author": "Tito <github@mynameistito.com>"
+    }
+  }
+}
