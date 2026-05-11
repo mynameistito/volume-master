@@ -1,0 +1,32 @@
+src/action-icon.ts
+  s_51f2c7cd8c639d::t_329eed2c0dc25b 44-52
+  s_51f2c7cd8c639d::t_a32f3b4c21bb5d 35
+  s_51f2c7cd8c639d::t_05ec18e9e2a64e 83
+  s_51f2c7cd8c639d::t_025fe756eb9e89 25
+  s_51f2c7cd8c639d::t_4fac39cb2f3076 26-31,108-113
+  s_51f2c7cd8c639d::t_4570325edeffca 74
+  s_51f2c7cd8c639d::t_24fe34d5ec6e64 36-42
+  s_51f2c7cd8c639d::t_b29a8f653ecc23 43
+  s_51f2c7cd8c639d::t_827d76c1f9d70a 1-24,32-34,53-73,75-82,84-93,103-107,114-140
+  s_51f2c7cd8c639d::t_2d4939942a0ddb 94-102
+src/entrypoints/background.ts
+  s_51f2c7cd8c639d::t_055e4890fdffc4 9
+  s_51f2c7cd8c639d::t_27213534c03d3e 32
+  s_51f2c7cd8c639d::t_fc04fd6d4add9d 48-55
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.4.4",
+  "base_commit_sha": "ed394d9488d9f0ce7ee9cfd6a1cb18d27129c188",
+  "prompts": {},
+  "sessions": {
+    "s_51f2c7cd8c639d": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "7f788afe-48c4-4011-a2ea-4ebfd84d94d1",
+        "model": "claude-opus-4-7"
+      },
+      "human_author": "Tito <github@mynameistito.com>"
+    }
+  }
+}
