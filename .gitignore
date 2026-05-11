@@ -34,3 +34,6 @@ logs
 
 # private working notes
 PROMPT.md
+
+# Package-lock.json
+package-lock.json
