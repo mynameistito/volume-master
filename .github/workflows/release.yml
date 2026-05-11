@@ -13,6 +13,8 @@ permissions:
 jobs:
   release:
     runs-on: ubuntu-latest
+    env:
+      CHROME_EXTENSION_KEY_PEM: ${{ secrets.CHROME_EXTENSION_KEY_PEM }}
     steps:
       - uses: actions/checkout@v4
 
@@ -29,4 +31,3 @@ jobs:
           publish: bun run ci:release
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          CHROME_EXTENSION_KEY_PEM: ${{ secrets.CHROME_EXTENSION_KEY_PEM }}

@@ -35,7 +35,10 @@ export default defineConfig({
   }),
   manifest: ({ browser }) => {
     const key = browser === "chrome" ? chromeManifestKey() : undefined;
-    if (browser === "chrome" && process.env.CI && !key) {
+    // Only enforce on real build/zip commands. `wxt prepare` (run during
+    // `bun install`) just emits types and doesn't ship the manifest.
+    const isBuild = process.argv.some((a) => a === "build" || a === "zip");
+    if (browser === "chrome" && process.env.CI && isBuild && !key) {
       throw new Error(
         "CHROME_EXTENSION_KEY_PEM is not set in CI. Refusing to build Chrome without a stable extension ID. Set the repo secret and re-run."
       );
