@@ -1,0 +1,19 @@
+src/entrypoints/popup/main.tsx
+  s_24b0686bab6058::t_a112c5b23dac32 5
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.4.4",
+  "base_commit_sha": "75b375162b18323175f0984305c38a869f5079f5",
+  "prompts": {},
+  "sessions": {
+    "s_24b0686bab6058": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "a5da03b5-057f-469a-8b10-111d13eb1b9d",
+        "model": "claude-opus-4-7"
+      },
+      "human_author": "Tito <github@mynameistito.com>"
+    }
+  }
+}
