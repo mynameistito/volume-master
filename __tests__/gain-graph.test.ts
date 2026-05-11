@@ -236,6 +236,23 @@ describe("gain-graph", () => {
     ).AudioContext = StubAudioContext;
   });
 
+  it("gesture-resume swallows ctx.resume rejection", async () => {
+    class RejectCtx extends StubAudioContext {
+      override state: "suspended" | "running" = "suspended";
+      override resume = () => Promise.reject(new Error("denied"));
+    }
+    (
+      globalThis as unknown as { AudioContext: typeof StubAudioContext }
+    ).AudioContext = RejectCtx;
+    const { setGain } = await import("@/audio/gain-graph");
+    setGain(200);
+    document.dispatchEvent(new Event("touchstart"));
+    await new Promise((r) => setTimeout(r, 0));
+    (
+      globalThis as unknown as { AudioContext: typeof StubAudioContext }
+    ).AudioContext = StubAudioContext;
+  });
+
   it("attach after setGain applies the current volume immediately", async () => {
     const { attach, setGain } = await import("@/audio/gain-graph");
     setGain(75);
