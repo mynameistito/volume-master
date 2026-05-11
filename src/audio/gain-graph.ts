@@ -219,6 +219,8 @@ export function observe(target: Node = document): MutationObserver {
 export function __resetGraph(): void {
   state = null;
   currentPercent = 100;
-  gestureHooked = false;
+  // gestureHooked is intentionally not reset: document listeners persist for
+  // the page's lifetime, and the guard in hookGestureResume prevents stacking
+  // duplicate listeners across re-entries.
   TRACKED_LIST.length = 0;
 }
