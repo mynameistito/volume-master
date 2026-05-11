@@ -13,9 +13,7 @@ export function TabRow({ tab, isActive, onSelect }: Props) {
     <button
       aria-current={isActive ? "true" : undefined}
       className={`grid w-full grid-cols-[18px_1fr_auto_auto] items-center gap-2 rounded-md px-2 py-1.5 text-left transition-colors hover:bg-elev-2 ${
-        isActive
-          ? "bg-accent/10 outline outline-accent/30"
-          : "outline-transparent"
+        isActive ? "bg-elev-2" : "outline-transparent"
       }`}
       onClick={() => onSelect(tab)}
       title={tab.title}
@@ -41,7 +39,11 @@ export function TabRow({ tab, isActive, onSelect }: Props) {
         {tab.volume}%
       </span>
       {tab.audible ? (
-        <span aria-hidden className="vm-pulse" title="Audible" />
+        <span
+          aria-hidden
+          className="size-1.5 animate-[vm-pulse_1.6s_ease-out_infinite] rounded-full bg-accent"
+          title="Audible"
+        />
       ) : (
         <span aria-hidden className="size-1.5" />
       )}

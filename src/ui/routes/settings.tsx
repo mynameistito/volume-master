@@ -12,7 +12,7 @@ export function SettingsRoute() {
           <strong className="text-fg">{VOLUME_MAX}% boost</strong>. No
           telemetry, no tracking.
         </p>
-        <p className="m-0 text-fg-dim text-sm leading-relaxed">
+        <p className="m-0 flex flex-col gap-1 text-fg-dim text-sm leading-relaxed">
           <a
             className="text-accent"
             href="https://github.com/mynameistito/volume-master"
@@ -20,6 +20,14 @@ export function SettingsRoute() {
             target="_blank"
           >
             Source &amp; issues on GitHub
+          </a>
+          <a
+            className="text-accent"
+            href="https://github.com/mynameistito/volume-master/blob/main/PRIVACY.md"
+            rel="noreferrer"
+            target="_blank"
+          >
+            Privacy policy
           </a>
         </p>
       </section>
