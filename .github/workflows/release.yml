@@ -15,6 +15,7 @@ jobs:
     runs-on: ubuntu-latest
     env:
       CHROME_EXTENSION_KEY_PEM: ${{ secrets.CHROME_EXTENSION_KEY_PEM }}
+      REQUIRE_CHROME_KEY: "1"
     steps:
       - uses: actions/checkout@v4
 
