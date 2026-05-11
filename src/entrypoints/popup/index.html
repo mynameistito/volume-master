@@ -6,12 +6,16 @@
     <meta name="color-scheme" content="dark light">
     <title>Volume Master</title>
     <script>
-      (function () {
-        try {
-          var t = localStorage.getItem("vm-theme");
-          document.documentElement.dataset.theme = t === "light" ? "light" : "dark";
-        } catch (e) {}
-      })();
+    "use strict";
+    (() => {
+      try {
+        const t = localStorage.getItem("vm-theme");
+        document.documentElement.dataset.theme =
+          t === "light" ? "light" : "dark";
+      } catch {
+        // localStorage unavailable; keep default data-theme="dark"
+      }
+    })();
     </script>
   </head>
   <body>
