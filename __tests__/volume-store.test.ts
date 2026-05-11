@@ -62,7 +62,7 @@ describe("volume-store memory fallback", () => {
       expect(await getVolume(12)).toBe(50);
       await removeVolume(11);
       expect(await getVolume(11)).toBe(VOLUME_DEFAULT);
-      // Still holds 12 → exercises the listKeys(null) branch via reset.
+      // Still holds 12 until __resetMemoryStore() clears the in-memory Map.
       __resetMemoryStore();
       expect(await getVolume(12)).toBe(VOLUME_DEFAULT);
     } finally {

@@ -116,8 +116,7 @@ describe("updateActionIcon", () => {
 
   test("active tab + default volume → restores plain icon via path", async () => {
     const fb = fakeBrowser();
-    fb.__tabs.push({ id: 1 } as never);
-    (fb.__tabs[0] as { active: boolean }).active = true;
+    fb.__tabs.push({ id: 1, active: true });
     await updateActionIcon(1, 100);
     expect(fb.__setIconCalls).toHaveLength(1);
     const c = fb.__setIconCalls[0];
@@ -129,10 +128,23 @@ describe("updateActionIcon", () => {
     expect(c.imageData).toBeUndefined();
   });
 
+  test("failed base-icon fetch is swallowed and cache entry cleared", async () => {
+    const fb = fakeBrowser();
+    fb.__tabs.push({ id: 3, active: true });
+    const g = globalThis as Record<string, unknown>;
+    const origFetch = g.fetch;
+    g.fetch = () => Promise.reject(new Error("boom"));
+    try {
+      await updateActionIcon(3, 200);
+    } finally {
+      g.fetch = origFetch;
+    }
+    expect(fb.__setIconCalls).toHaveLength(0);
+  });
+
   test("active tab + custom volume → setIcon with imageData", async () => {
     const fb = fakeBrowser();
-    fb.__tabs.push({ id: 2 } as never);
-    (fb.__tabs[0] as { active: boolean }).active = true;
+    fb.__tabs.push({ id: 2, active: true });
     await updateActionIcon(2, 250);
     expect(fb.__setIconCalls).toHaveLength(1);
     const c = fb.__setIconCalls[0];
@@ -164,8 +176,7 @@ describe("updateActionIcon", () => {
 
   test("getContext returning null is swallowed", async () => {
     const fb = fakeBrowser();
-    fb.__tabs.push({ id: 5 } as never);
-    (fb.__tabs[0] as { active: boolean }).active = true;
+    fb.__tabs.push({ id: 5, active: true });
     const g = globalThis as Record<string, unknown>;
     const origOC = g.OffscreenCanvas;
     class NullCtxOC {

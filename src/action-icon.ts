@@ -18,6 +18,7 @@ function loadBase(size: IconSize): Promise<ImageBitmap> {
       .then((r) => r.blob())
       .then((b) => createImageBitmap(b));
     baseBitmaps.set(size, p);
+    p.catch(() => baseBitmaps.delete(size));
   }
   return p;
 }

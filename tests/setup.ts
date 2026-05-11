@@ -50,6 +50,7 @@ function makeArea(): FakeArea {
 }
 
 export interface FakeTab {
+  active?: boolean;
   audible?: boolean;
   favIconUrl?: string;
   id?: number;
