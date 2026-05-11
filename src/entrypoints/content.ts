@@ -8,18 +8,45 @@ import {
   observe,
   setGain,
 } from "@/audio/gain-graph";
-import { onMessage } from "@/messaging/bus";
+import { onMessage, send } from "@/messaging/bus";
+import type { GetVolumeRes } from "@/messaging/protocol";
 
 export default defineContentScript({
   matches: ["<all_urls>"],
   runAt: "document_start",
   allFrames: true,
   main() {
-    // Initial wiring: catch any pre-existing media + watch for new ones.
-    for (const el of findMediaElements()) {
-      attach(el);
-    }
+    // Watch for media added later. Initial scan at document_start usually
+    // finds nothing (no <body> yet), so we also rescan on DOMContentLoaded.
     observe(document);
+    const scan = () => {
+      for (const el of findMediaElements()) {
+        attach(el);
+      }
+    };
+    scan();
+    document.addEventListener("DOMContentLoaded", scan, { once: true });
+    window.addEventListener("load", scan, { once: true });
+
+    // Restore this tab's stored volume. Background fills in tabId from the
+    // message sender, so we send `tabId: 0` as a placeholder.
+    const restore = () => {
+      send<GetVolumeRes>({ kind: "vm/get-volume", tabId: 0 })
+        .then((res) => {
+          if (res && typeof res.volume === "number") {
+            setGain(res.volume);
+          }
+        })
+        .catch(() => undefined);
+    };
+    restore();
+    // bfcache restore — page becomes visible again without re-running scripts
+    // in some browsers; re-apply just in case.
+    window.addEventListener("pageshow", (e) => {
+      if ((e as PageTransitionEvent).persisted) {
+        restore();
+      }
+    });
 
     // Apply gain when the background broadcasts a change.
     onMessage((msg) => {

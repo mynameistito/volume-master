@@ -12,13 +12,16 @@ import { getVolume, removeVolume, setVolume } from "@/storage/volume-store";
 import { listManagedTabs } from "@/tabs/audible";
 
 export default defineBackground(() => {
-  onMessage(async (msg) => {
+  onMessage(async (msg, sender) => {
     switch (msg.kind) {
       case "vm/get-tabs":
         return { tabs: await listManagedTabs() };
 
-      case "vm/get-volume":
-        return { tabId: msg.tabId, volume: await getVolume(msg.tabId) };
+      case "vm/get-volume": {
+        // Content scripts pass `tabId: 0` to mean "resolve from sender".
+        const tabId = msg.tabId > 0 ? msg.tabId : (sender.tab?.id ?? 0);
+        return { tabId, volume: await getVolume(tabId) };
+      }
 
       case "vm/set-volume": {
         const stored = await setVolume(msg.tabId, msg.volume);

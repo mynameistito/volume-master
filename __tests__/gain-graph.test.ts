@@ -8,10 +8,10 @@ afterAll(async () => {
   await GlobalRegistrator.unregister();
 });
 
-let lastGainNode: StubGainNode;
-let lastCompressor: StubDynamicsCompressor;
-let lastWaveshaper: StubWaveShaper;
+let lastGainNode: StubGainNode | undefined;
+let lastCompressor: StubDynamicsCompressor | undefined;
 let mediaSourceCallCount = 0;
+let ctxCtorCount = 0;
 
 class StubAudioParam {
   value = 1;
@@ -28,17 +28,15 @@ class StubDynamicsCompressor {
   release = new StubAudioParam();
   connect = () => undefined;
 }
-class StubWaveShaper {
-  curve: Float32Array | null = null;
-  oversample: OverSampleType = "none";
-  connect = () => undefined;
-}
 class StubSource {
   connect = () => undefined;
 }
 class StubAudioContext {
   state: "suspended" | "running" = "running";
   destination = {};
+  constructor() {
+    ctxCtorCount++;
+  }
   resume = () => Promise.resolve();
   createGain = () => {
     lastGainNode = new StubGainNode();
@@ -47,10 +45,6 @@ class StubAudioContext {
   createDynamicsCompressor = () => {
     lastCompressor = new StubDynamicsCompressor();
     return lastCompressor;
-  };
-  createWaveShaper = () => {
-    lastWaveshaper = new StubWaveShaper();
-    return lastWaveshaper;
   };
   createMediaElementSource = (_el: unknown) => {
     mediaSourceCallCount++;
@@ -68,66 +62,122 @@ afterEach(async () => {
   const mod = await import("@/audio/gain-graph");
   mod.__resetGraph();
   mediaSourceCallCount = 0;
+  ctxCtorCount = 0;
+  lastGainNode = undefined;
+  lastCompressor = undefined;
 });
 
-describe("gain-graph", () => {
-  it("setGain stores the percent and uses perceptual curve above 100%", async () => {
-    const { setGain, currentVolume } = await import("@/audio/gain-graph");
-    setGain(200);
-    expect(currentVolume()).toBe(200);
-    expect(lastGainNode?.gain?.value).toBeCloseTo(2 ** 1.6, 10);
-  });
+function makeMedia(): HTMLMediaElement {
+  const el = document.createElement("audio") as HTMLMediaElement;
+  // happy-dom doesn't define `volume` writably by default — make it a plain
+  // property the implementation can write to.
+  Object.defineProperty(el, "volume", { value: 1, writable: true });
+  return el;
+}
 
-  it("setGain below 100% uses linear mapping", async () => {
+describe("gain-graph", () => {
+  it("setGain ≤100% does NOT create an AudioContext (bypass mode)", async () => {
     const { setGain, currentVolume } = await import("@/audio/gain-graph");
     setGain(50);
     expect(currentVolume()).toBe(50);
-    expect(lastGainNode?.gain?.value).toBe(0.5);
+    expect(ctxCtorCount).toBe(0);
+    expect(lastGainNode).toBeUndefined();
   });
 
-  it("setGain at 100% is unity gain", async () => {
-    const { setGain } = await import("@/audio/gain-graph");
+  it("setGain ≤100% applies native el.volume on tracked elements", async () => {
+    const { attach, setGain } = await import("@/audio/gain-graph");
+    const el = makeMedia();
+    attach(el);
+    setGain(50);
+    expect(el.volume).toBe(0.5);
+    expect(mediaSourceCallCount).toBe(0);
+  });
+
+  it("setGain at 100% leaves volume at 1 and skips the graph", async () => {
+    const { attach, setGain } = await import("@/audio/gain-graph");
+    const el = makeMedia();
+    attach(el);
     setGain(100);
-    expect(lastGainNode?.gain?.value).toBe(1);
+    expect(el.volume).toBe(1);
+    expect(ctxCtorCount).toBe(0);
+  });
+
+  it("setGain >100% builds graph with linear gain and pins el.volume to 1", async () => {
+    const { attach, setGain, currentVolume } = await import(
+      "@/audio/gain-graph"
+    );
+    const el = makeMedia();
+    attach(el);
+    setGain(300);
+    expect(currentVolume()).toBe(300);
+    expect(ctxCtorCount).toBe(1);
+    expect(lastGainNode?.gain.value).toBe(3);
+    expect(mediaSourceCallCount).toBe(1);
+    expect(el.volume).toBe(1);
+  });
+
+  it("setGain 600% applies 6x linear gain (no perceptual curve)", async () => {
+    const { setGain } = await import("@/audio/gain-graph");
+    setGain(600);
+    expect(lastGainNode?.gain.value).toBe(6);
+  });
+
+  it("returning >100% → ≤100% restores native scaling and unity gain", async () => {
+    const { attach, setGain } = await import("@/audio/gain-graph");
+    const el = makeMedia();
+    attach(el);
+    setGain(400);
+    expect(el.volume).toBe(1);
+    expect(lastGainNode?.gain.value).toBe(4);
+    setGain(50);
+    expect(el.volume).toBe(0.5);
+    expect(lastGainNode?.gain.value).toBe(1);
+  });
+
+  it("returning to bypass neutralises the compressor (ratio=1 pass-through)", async () => {
+    const { setGain } = await import("@/audio/gain-graph");
+    setGain(300);
+    expect(lastCompressor?.ratio.value).toBe(4);
+    expect(lastCompressor?.threshold.value).toBe(-3);
+    setGain(100);
+    expect(lastCompressor?.ratio.value).toBe(1);
+    expect(lastCompressor?.threshold.value).toBe(0);
+    expect(lastCompressor?.knee.value).toBe(0);
   });
 
   it("setGain clamps negative values to 0", async () => {
     const { setGain, currentVolume } = await import("@/audio/gain-graph");
+    const el = makeMedia();
+    const { attach } = await import("@/audio/gain-graph");
+    attach(el);
     setGain(-10);
     expect(currentVolume()).toBe(0);
-    expect(lastGainNode?.gain?.value).toBe(0);
+    expect(el.volume).toBe(0);
   });
 
   it("setGain sanitizes NaN and Infinity to 0", async () => {
-    const { setGain, currentVolume } = await import("@/audio/gain-graph");
+    const { setGain, currentVolume, attach } = await import(
+      "@/audio/gain-graph"
+    );
+    const el = makeMedia();
+    attach(el);
     setGain(Number.NaN);
     expect(currentVolume()).toBe(0);
-    expect(lastGainNode?.gain?.value).toBe(0);
+    expect(el.volume).toBe(0);
 
     setGain(Number.POSITIVE_INFINITY);
     expect(currentVolume()).toBe(0);
-    expect(lastGainNode?.gain?.value).toBe(0);
+    expect(el.volume).toBe(0);
   });
 
-  it("builds compressor with correct settings", async () => {
+  it("compressor uses gentle limiter settings (only built on boost)", async () => {
     const { setGain } = await import("@/audio/gain-graph");
-    setGain(100);
-    expect(lastCompressor.threshold.value).toBe(-6);
-    expect(lastCompressor.knee.value).toBe(12);
-    expect(lastCompressor.ratio.value).toBe(12);
-    expect(lastCompressor.attack.value).toBe(0.003);
-    expect(lastCompressor.release.value).toBe(0.15);
-  });
-
-  it("builds waveshaper with soft-clip curve and 4x oversample", async () => {
-    const { setGain } = await import("@/audio/gain-graph");
-    setGain(100);
-    const curve = lastWaveshaper.curve;
-    expect(curve).not.toBeNull();
-    if (curve) {
-      expect(curve.length).toBe(8192);
-    }
-    expect(lastWaveshaper.oversample).toBe("4x");
+    setGain(200);
+    expect(lastCompressor?.threshold.value).toBe(-3);
+    expect(lastCompressor?.knee.value).toBe(6);
+    expect(lastCompressor?.ratio.value).toBe(4);
+    expect(lastCompressor?.attack.value).toBe(0.003);
+    expect(lastCompressor?.release.value).toBe(0.1);
   });
 
   it("findMediaElements returns audio + video", async () => {
@@ -140,31 +190,17 @@ describe("gain-graph", () => {
     expect(findMediaElements().length).toBe(2);
   });
 
-  it("attach is idempotent on the same element", async () => {
-    const { attach } = await import("@/audio/gain-graph");
-    const el = document.createElement("audio") as unknown as HTMLMediaElement;
+  it("attach is idempotent; createMediaElementSource fires at most once", async () => {
+    const { attach, setGain } = await import("@/audio/gain-graph");
+    const el = makeMedia();
     attach(el);
     attach(el);
+    setGain(200);
+    setGain(300);
     expect(mediaSourceCallCount).toBe(1);
   });
 
-  it("setGain swallows AudioContext.resume() rejection", async () => {
-    class RejectCtx extends StubAudioContext {
-      override state: "suspended" | "running" = "suspended";
-      override resume = () => Promise.reject(new Error("denied"));
-    }
-    (
-      globalThis as unknown as { AudioContext: typeof StubAudioContext }
-    ).AudioContext = RejectCtx;
-    const { setGain } = await import("@/audio/gain-graph");
-    setGain(100);
-    await new Promise((r) => setTimeout(r, 0));
-    (
-      globalThis as unknown as { AudioContext: typeof StubAudioContext }
-    ).AudioContext = StubAudioContext;
-  });
-
-  it("setGain resumes a suspended AudioContext", async () => {
+  it("setGain >100% resumes a suspended AudioContext", async () => {
     let resumed = 0;
     class SuspendedCtx extends StubAudioContext {
       override state: "suspended" | "running" = "suspended";
@@ -177,21 +213,55 @@ describe("gain-graph", () => {
       globalThis as unknown as { AudioContext: typeof StubAudioContext }
     ).AudioContext = SuspendedCtx;
     const { setGain } = await import("@/audio/gain-graph");
-    setGain(100);
+    setGain(200);
     expect(resumed).toBe(1);
     (
       globalThis as unknown as { AudioContext: typeof StubAudioContext }
     ).AudioContext = StubAudioContext;
   });
 
+  it("setGain >100% swallows AudioContext.resume() rejection", async () => {
+    class RejectCtx extends StubAudioContext {
+      override state: "suspended" | "running" = "suspended";
+      override resume = () => Promise.reject(new Error("denied"));
+    }
+    (
+      globalThis as unknown as { AudioContext: typeof StubAudioContext }
+    ).AudioContext = RejectCtx;
+    const { setGain } = await import("@/audio/gain-graph");
+    setGain(200);
+    await new Promise((r) => setTimeout(r, 0));
+    (
+      globalThis as unknown as { AudioContext: typeof StubAudioContext }
+    ).AudioContext = StubAudioContext;
+  });
+
+  it("attach after setGain applies the current volume immediately", async () => {
+    const { attach, setGain } = await import("@/audio/gain-graph");
+    setGain(75);
+    const el = makeMedia();
+    attach(el);
+    expect(el.volume).toBe(0.75);
+  });
+
+  it("attach after boost wires the late element into the graph", async () => {
+    const { attach, setGain } = await import("@/audio/gain-graph");
+    setGain(250);
+    const el = makeMedia();
+    attach(el);
+    expect(mediaSourceCallCount).toBe(1);
+    expect(el.volume).toBe(1);
+  });
+
   it("observe attaches to media nodes added later", async () => {
     document.body.innerHTML = "";
-    const { observe } = await import("@/audio/gain-graph");
+    const { observe, setGain } = await import("@/audio/gain-graph");
+    setGain(200); // ensure boost mode so attach -> createMediaElementSource
     const obs = observe(document.body);
-    const audio = document.createElement("audio");
+    const audio = makeMedia();
     document.body.appendChild(audio);
     const wrapper = document.createElement("div");
-    const nested = document.createElement("video");
+    const nested = makeMedia();
     wrapper.appendChild(nested);
     document.body.appendChild(wrapper);
     await new Promise((r) => setTimeout(r, 0));
