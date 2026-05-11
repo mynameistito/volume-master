@@ -1,0 +1,19 @@
+scripts/ci-release.ts
+  s_3cd2d79d0d1464::t_823498eff73cff 16-24
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.4.4",
+  "base_commit_sha": "decc358bb60e6795cb80469525b206a292b47e12",
+  "prompts": {},
+  "sessions": {
+    "s_3cd2d79d0d1464": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "8f94f969-9a12-4ad3-8d58-8fd87d61ba33",
+        "model": "claude-opus-4-7"
+      },
+      "human_author": "Tito <github@mynameistito.com>"
+    }
+  }
+}
