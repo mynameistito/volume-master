@@ -1,0 +1,21 @@
+src/ui/components/volume-slider.tsx
+  s_24b0686bab6058::t_e7b77300543841 8-29,51,57-59
+src/ui/components/tab-row.tsx
+  s_24b0686bab6058::t_22012fd143dcf3 42-46
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.4.4",
+  "base_commit_sha": "0b11b7c67ad9d24442462f092f35ee223f2ea534",
+  "prompts": {},
+  "sessions": {
+    "s_24b0686bab6058": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "a5da03b5-057f-469a-8b10-111d13eb1b9d",
+        "model": "claude-opus-4-7"
+      },
+      "human_author": "Tito <github@mynameistito.com>"
+    }
+  }
+}
