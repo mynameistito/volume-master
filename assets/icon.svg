@@ -1,9 +1,11 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" fill="none">
-  <!-- Boost waves only -->
-  <path d="M44 36 Q70 64 44 92" stroke="#38BDF8" stroke-width="9"
+  <!-- Boost waves only, 4 arcs, widely spaced -->
+  <path d="M36 50 Q56 64 36 78" stroke="#38BDF8" stroke-width="7"
         stroke-linecap="round" fill="none" opacity="1"/>
-  <path d="M44 20 Q92 64 44 108" stroke="#38BDF8" stroke-width="9"
-        stroke-linecap="round" fill="none" opacity="0.7"/>
-  <path d="M44 4 Q116 64 44 124" stroke="#38BDF8" stroke-width="9"
-        stroke-linecap="round" fill="none" opacity="0.45"/>
+  <path d="M36 36 Q84 64 36 92" stroke="#38BDF8" stroke-width="7"
+        stroke-linecap="round" fill="none" opacity="0.72"/>
+  <path d="M36 22 Q124 64 36 106" stroke="#38BDF8" stroke-width="7"
+        stroke-linecap="round" fill="none" opacity="0.5"/>
+  <path d="M36 8 Q176 64 36 120" stroke="#38BDF8" stroke-width="7"
+        stroke-linecap="round" fill="none" opacity="0.3"/>
 </svg>
