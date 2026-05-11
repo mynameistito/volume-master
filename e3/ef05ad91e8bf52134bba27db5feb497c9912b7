@@ -1,0 +1,36 @@
+assets/icon.svg
+  s_bd9d1f1b55ae13::t_c8ccb018a1b0ed 1-7
+__tests__/gain-graph.test.ts
+  s_bd9d1f1b55ae13::t_ab1c87164f24f8 256-273,277-281
+  s_bd9d1f1b55ae13::t_3f7f81da7d1903 274-276
+.changeset/icon-refresh-and-volume-pill.md
+  s_bd9d1f1b55ae13::t_019be1543742fd 1-4
+  s_bd9d1f1b55ae13::t_0ce15828d41757 5
+__tests__/action-icon.test.ts
+  s_bd9d1f1b55ae13::t_c8621875b89062 3-9
+  s_bd9d1f1b55ae13::t_5813c7be07e7e5 68-69,71,73,76-77,83-84,86,88,99-100
+  s_bd9d1f1b55ae13::t_f0cb478d2e0042 26-27,30-38
+  s_bd9d1f1b55ae13::t_f2c5286bdd4d1f 20-23
+src/action-icon.ts
+  s_bd9d1f1b55ae13::t_a9364da1e8bedb 44-48,50,53,55-73
+  s_bd9d1f1b55ae13::t_c5e7c38f0fc52a 97-99,101-102,116-122,124
+  s_bd9d1f1b55ae13::t_f5c1fad83cd1bc 39,41
+  s_bd9d1f1b55ae13::t_e0ffa04d4867c1 100
+  s_bd9d1f1b55ae13::t_4fb9ee3b2e224a 103-105,107-115
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.4.4",
+  "base_commit_sha": "e3ef05ad91e8bf52134bba27db5feb497c9912b7",
+  "prompts": {},
+  "sessions": {
+    "s_bd9d1f1b55ae13": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "517a00ef-b01f-41f6-902c-7beaaf0e45b8",
+        "model": "claude-opus-4-7"
+      },
+      "human_author": "Tito <github@mynameistito.com>"
+    }
+  }
+}
