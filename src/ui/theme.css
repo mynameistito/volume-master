@@ -19,7 +19,7 @@
 }
 
 @layer base {
-  [data-theme="dark"] {
+  :root[data-theme="dark"] {
     --color-bg: #0a0a0a;
     --color-elev: #141414;
     --color-elev-2: #1f1f1f;
