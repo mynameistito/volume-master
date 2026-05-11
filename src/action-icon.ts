@@ -36,19 +36,41 @@ export function label(volume: VolumePercent): string {
 export function fontSizeFor(size: IconSize, textLen: number): number {
   const short = textLen <= 2;
   if (size === 16) {
-    return short ? 11 : 9;
+    return short ? 9 : 7;
   }
-  return short ? 20 : 16;
+  return short ? 15 : 12;
 }
 
-export function fillColor(volume: VolumePercent): string {
+export function fillColor(_volume: VolumePercent): string {
+  return "#ffffff";
+}
+
+export function pillColor(volume: VolumePercent): string {
   if (volume === 0) {
-    return "#ff6b6b";
+    return "#dc2626";
   }
   if (volume > 100) {
-    return "#ffd166";
+    return "#d97706";
   }
-  return "#ffffff";
+  return "#1E9BF0";
+}
+
+function roundedRectPath(
+  ctx: OffscreenCanvasRenderingContext2D,
+  x: number,
+  y: number,
+  w: number,
+  h: number,
+  r: number
+): void {
+  const rr = Math.min(r, w / 2, h / 2);
+  ctx.beginPath();
+  ctx.moveTo(x + rr, y);
+  ctx.arcTo(x + w, y, x + w, y + h, rr);
+  ctx.arcTo(x + w, y + h, x, y + h, rr);
+  ctx.arcTo(x, y + h, x, y, rr);
+  ctx.arcTo(x, y, x + w, y, rr);
+  ctx.closePath();
 }
 
 function getCanvas(size: number): OffscreenCanvas {
@@ -72,17 +94,34 @@ async function renderImageData(
   ctx.drawImage(base, 0, 0, size, size);
 
   const text = label(volume);
-  const fontPx = fontSizeFor(size, text.length);
+  ctx.textAlign = "center";
+  ctx.textBaseline = "middle";
+
+  const padX = Math.max(1, Math.round(size / 16));
+  const padY = Math.max(1, Math.round(size / 16));
+  const margin = Math.max(1, Math.round(size / 32));
+  const maxPillW = size - margin * 2;
+
+  let fontPx = fontSizeFor(size, text.length);
   ctx.font = `700 ${fontPx}px "Segoe UI", system-ui, sans-serif`;
-  ctx.textAlign = "right";
-  ctx.textBaseline = "alphabetic";
-  const x = size - 1;
-  const y = size - 1;
-  ctx.lineWidth = Math.max(2, Math.round(size / 10));
-  ctx.strokeStyle = "rgba(0,0,0,0.95)";
-  ctx.strokeText(text, x, y);
+  let textW = Math.ceil(ctx.measureText(text).width);
+  while (textW + padX * 2 > maxPillW && fontPx > 6) {
+    fontPx -= 1;
+    ctx.font = `700 ${fontPx}px "Segoe UI", system-ui, sans-serif`;
+    textW = Math.ceil(ctx.measureText(text).width);
+  }
+
+  const pillH = fontPx + padY * 2;
+  const pillW = Math.min(textW + padX * 2, maxPillW);
+  const pillX = size - pillW - margin;
+  const pillY = size - pillH - margin;
+
+  roundedRectPath(ctx, pillX, pillY, pillW, pillH, pillH / 2);
+  ctx.fillStyle = pillColor(volume);
+  ctx.fill();
+
   ctx.fillStyle = fillColor(volume);
-  ctx.fillText(text, x, y);
+  ctx.fillText(text, pillX + pillW / 2, pillY + pillH / 2);
 
   return ctx.getImageData(0, 0, size, size);
 }

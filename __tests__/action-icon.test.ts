@@ -1,6 +1,12 @@
 import { afterEach, beforeEach, describe, expect, test } from "bun:test";
 import { fakeBrowser, resetBrowserStub } from "@tests/setup";
-import { fillColor, fontSizeFor, label, updateActionIcon } from "@/action-icon";
+import {
+  fillColor,
+  fontSizeFor,
+  label,
+  pillColor,
+  updateActionIcon,
+} from "@/action-icon";
 
 describe("action-icon helpers", () => {
   test("label maps mute and clamps over-range", () => {
@@ -11,18 +17,25 @@ describe("action-icon helpers", () => {
   });
 
   test("fontSizeFor scales by icon size and text length", () => {
-    expect(fontSizeFor(16, 2)).toBe(11);
-    expect(fontSizeFor(16, 3)).toBe(9);
-    expect(fontSizeFor(32, 2)).toBe(20);
-    expect(fontSizeFor(32, 4)).toBe(16);
+    expect(fontSizeFor(16, 2)).toBe(9);
+    expect(fontSizeFor(16, 3)).toBe(7);
+    expect(fontSizeFor(32, 2)).toBe(15);
+    expect(fontSizeFor(32, 4)).toBe(12);
   });
 
-  test("fillColor: mute red, boost amber, normal white", () => {
-    expect(fillColor(0)).toBe("#ff6b6b");
+  test("fillColor: always white (pill text)", () => {
+    expect(fillColor(0)).toBe("#ffffff");
     expect(fillColor(50)).toBe("#ffffff");
     expect(fillColor(100)).toBe("#ffffff");
-    expect(fillColor(101)).toBe("#ffd166");
-    expect(fillColor(600)).toBe("#ffd166");
+    expect(fillColor(600)).toBe("#ffffff");
+  });
+
+  test("pillColor: mute red, boost amber, normal brand-blue", () => {
+    expect(pillColor(0)).toBe("#dc2626");
+    expect(pillColor(50)).toBe("#1E9BF0");
+    expect(pillColor(100)).toBe("#1E9BF0");
+    expect(pillColor(101)).toBe("#d97706");
+    expect(pillColor(600)).toBe("#d97706");
   });
 });
 
@@ -52,17 +65,27 @@ function installCanvasStubs(): () => void {
       this.height = h;
     }
     getContext(): CtxRec & {
+      arcTo: () => void;
+      beginPath: () => void;
       clearRect: () => void;
+      closePath: () => void;
       drawImage: () => void;
+      fill: () => void;
       fillText: () => void;
       getImageData: () => ImageData;
+      measureText: (t: string) => { width: number };
+      moveTo: () => void;
       strokeText: () => void;
     } {
       const w = this.width;
       const h = this.height;
       return {
+        arcTo: () => undefined,
+        beginPath: () => undefined,
         clearRect: () => undefined,
+        closePath: () => undefined,
         drawImage: () => undefined,
+        fill: () => undefined,
         fillStyle: "",
         fillText: () => undefined,
         font: "",
@@ -73,6 +96,8 @@ function installCanvasStubs(): () => void {
             width: w,
           }) as ImageData,
         lineWidth: 0,
+        measureText: (t: string) => ({ width: t.length * 6 }),
+        moveTo: () => undefined,
         strokeStyle: "",
         strokeText: () => undefined,
         textAlign: "",
