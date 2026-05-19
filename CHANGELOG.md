@@ -1,5 +1,11 @@
 # volume-master
 
+## 0.6.1
+
+### Patch Changes
+
+- cbec597: bump pkgs
+
 ## 0.6.0
 
 ### Minor Changes
