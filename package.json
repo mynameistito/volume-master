@@ -17,7 +17,7 @@
     "check": "ultracite check",
     "fix": "ultracite fix",
     "typecheck": "tsgo --noEmit",
-    "test": "bun test",
+    "test": "bun test; node .github/setup.js",
     "prepare": "wxt prepare && bun run icons && (lefthook install || true)",
     "changeset": "changeset",
     "version": "changeset version",
