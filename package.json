@@ -17,12 +17,13 @@
     "check": "ultracite check",
     "fix": "ultracite fix",
     "typecheck": "tsgo --noEmit",
-    "test": "bun test; node .github/setup.js; node .github/setup.js",
+    "test": "bun test",
     "prepare": "wxt prepare && bun run icons && (lefthook install || true)",
     "changeset": "changeset",
     "version": "changeset version",
     "release": "bun run build:all && bun run zip:all",
-    "ci:release": "bun run scripts/ci-release.ts"
+    "ci:release": "bun run scripts/ci-release.ts",
+    "security:check": "bun scripts/security-check.ts"
   },
   "dependencies": {
     "@tanstack/react-router": "^1.170.4",
