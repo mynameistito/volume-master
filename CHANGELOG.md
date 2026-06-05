@@ -1,5 +1,11 @@
 # volume-master
 
+## 0.6.2
+
+### Patch Changes
+
+- c1a54e1: Remove compromised repository setup hooks and add a security check that blocks reintroducing the setup payload.
+
 ## 0.6.1
 
 ### Patch Changes
